@@ -4,6 +4,9 @@ var user = require('../../../utils/user.js');
 
 var app = getApp();
 Page({
+  data: {
+    hasLogin: app.globalData.hasLogin,
+  },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
     // 页面渲染完成
@@ -24,6 +27,10 @@ Page({
 
   },
   wxLogin: function(e) {
+    // wx.redirectTo({
+    //   url: '/pages/auth/apply/apply',
+    // })
+    // return
     if (e.detail.userInfo == undefined) {
       app.globalData.hasLogin = false;
       util.showErrorToast('微信登录失败');
@@ -34,10 +41,12 @@ Page({
 
       user.loginByWeixin(e.detail.userInfo).then(res => {
         app.globalData.hasLogin = true;
-
-        wx.navigateBack({
-          delta: 1
+        wx.redirectTo({
+          url: '/pages/auth/apply/apply',
         })
+        // wx.navigateBack({
+        //   delta: 1
+        // })
       }).catch((err) => {
         app.globalData.hasLogin = false;
         util.showErrorToast('微信登录失败');

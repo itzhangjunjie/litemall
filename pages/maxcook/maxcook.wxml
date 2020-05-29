@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="catalog">
+    <view class="cate">
+      <scroll-view scroll-x class="left-aside">
+        <view bindtap="catechange" data-index="{{0}}" class="catename {{catenameactive==0?'catenameactive':''}}">
+          推荐
+        </view>
+        <block wx:for="{{categoryList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+          <view bindtap="catechange" data-menuid="{{item.id}}" data-index="{{index+1}}" class="catename {{catenameactive==(index+1)?'catenameactive':''}}">
+            {{item.name}}
+          </view>
+        </block>
+      </scroll-view>
+      <view class="goodslist">
+        <scroll-view class="goods-vew" scroll-y="true" bindscrolltolower="loadMore">
+          <view class='classify' wx:if='{{data.length != 0}}'>
+            <block wx:for='{{data}}' wx:key='id'>
+              <navigator url="../topicDetail/topicDetail?id={{item.id}}">
+                <view class="cpview">
+                  <view class="cpimage">
+                    <image src="{{item.picUrl}}"></image>
+                    <view class="cpreadview">
+                      <view class="cpreadimage">
+                        <image src="/static/images/read.png"></image>
+                      </view>
+                      <view class="cpreadcount">{{item.readCount}}</view>
+                    </view>
+                  </view>
+                  <view class="cptitle">
+                    {{item.title}}
+                  </view>
+                  <view class="cpsubtitle">
+                    {{item.subtitle}}
+                  </view>
+                </view>
+              </navigator>
+            </block>
+          </view>
+          <view wx:else class='noData'>暂无文章</view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+</view>

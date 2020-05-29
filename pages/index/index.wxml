@@ -15,21 +15,21 @@
     </view>
   </view>
   <view class="mdlistclass">
-      <view class="mdtitle">为您找到附近{{mdlist.length}}家门店</view>
-      <view class="mdlistview">
-        <view class="mdobjview" wx:for="{{mdlist}}" wx:key="id">
-          <view class="mdtitleview">上海已经四方的门店
-            <view class="mdjlview">(1.7Km)</view>
-          </view>
-          <view class="mddetalview">
-            <view class="mdjsview">乐山大佛零售店发售的法律</view>
-            <view bindtap="jrmd" class="mdjrview">进入门店</view>
-          </view>
+    <view class="mdtitle">为您找到附近{{mdlist.length}}家门店</view>
+    <view class="mdlistview">
+      <view class="mdobjview" wx:for="{{mdlist}}" wx:key="id">
+        <view class="mdtitleview">上海已经四方的门店
+          <view class="mdjlview">(1.7Km)</view>
+        </view>
+        <view class="mddetalview">
+          <view class="mdjsview">乐山大佛零售店发售的法律</view>
+          <view bindtap="jrmd" class="mdjrview">进入门店</view>
         </view>
       </view>
-      <view class="nodatamd" wx:if="{{mdlist.length == 0}}">
-          暂无附近门店
-      </view>
+    </view>
+    <view class="nodatamd" wx:if="{{mdlist.length == 0}}">
+      暂无附近门店
+    </view>
   </view>
   <view class="logobtclass">
     <image src="/static/images/btlogo.png"></image>
@@ -67,14 +67,14 @@
         </navigator>
       </block>
       <block wx:else>
-        <image src="{{item.url}}" background-size="cover"></image>
+        <image bindtap="goh5" src="{{item.url}}" background-size="cover"></image>
       </block>
     </swiper-item>
   </swiper>
   <view class="m-menu">
     <navigator class="item" url="/pages/category/category?id={{item.id}}" wx:for="{{channel}}" wx:key="id">
       <view class="bgitem">
-        <image class="gtbg" src="/static/images/gtbg.png" ></image>
+        <image class="gtbg" src="/static/images/gtbg.png"></image>
         <image class="goodimage" src="{{item.iconUrl}}" background-size="cover"></image>
       </view>
       <text>{{item.name}}</text>
@@ -133,6 +133,31 @@
       </view>
     </view>
   </view>
+  <!-- -------每日秒杀-------------- -->
+  <view class='seckill'>
+    <view class='seckill-title'>
+      <image class='title-left' src='/static/images/mrms.png'></image>
+      <view class='title-center'>
+        <!-- <image class='avatar' src=''></image> -->
+        <view class='buyinfo'>{{countDownNumStr}}</view>
+      </view>
+      <!-- <view class='top-right'>更多
+        <image class="mine-back" src="/static/images/mine-back.png" role="img"></image>
+      </view> -->
+    </view>
+    <scroll-view scroll-x class='scroll'>
+      <block wx:for='{{newGoods}}'  wx:key="*this">
+        <view class='item'>
+          <image class='goodimg' src="{{item.picUrl}}"></image>
+          <view class='goodname'>{{item.name}}</view>
+          <view class='good-bottom'>
+            <view class='goodprice'>{{item.retailPrice}}</view>
+            <view class='goodline-price'>{{item.counterPrice}}</view>
+          </view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
 
   <view class="a-section a-groupon" wx:if="{{groupons.length > 0}}">
     <view class="h">
@@ -168,8 +193,50 @@
       </view>
     </view>
   </view>
-
-  <view class="a-section a-brand">
+  <!-- 类目的筛选 -->
+  <view class='cate-view' wx:for="{{floorGoods}}" wx:key="id">
+    <view class='cate-title'>
+        <image bindtap="gocate" data-catalogid="{{item.id}}" class='cate-img' src='{{item.catePicUrl}}'></image>
+    </view>
+    <scroll-view scroll-x class='scroll'>
+      <block wx:for="{{item.goodsList}}" wx:for-index="iindex" wx:for-item="iitem" wx:key="id">
+        <view class='item'>
+          <navigator url="/pages/goods/goods?id={{iitem.id}}" class="t">
+            <image class='goodimg' src="{{iitem.picUrl}}"></image>
+            <view class='goodname'>{{iitem.name}}</view>
+            <view class='good-bottom'>
+              <view class='goodprice'>{{iitem.retailPrice}}</view>
+              <view class='goodline-price'>{{iitem.counterPrice}}</view>
+            </view>
+          </navigator>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+</view>
+<!-- <view class="good-grid" wx:for="{{floorGoods}}" wx:key="id">
+    <view class="h">
+      <text>{{item.name}}</text>
+    </view>
+    <view class="b">
+      <scroll-view scroll-x class='scroll'>
+        <block wx:for="{{item.goodsList}}" wx:for-index="iindex" wx:for-item="iitem" wx:key="id">
+          <view class="item {{iindex % 2 == 0 ? '' : 'item-b'}}">
+            <navigator url="../goods/goods?id={{iitem.id}}" class="a">
+              <image class="img" src="{{iitem.picUrl}}" background-size="cover"></image>
+              <text class="name">{{iitem.name}}</text>
+              <text class="price">￥{{iitem.retailPrice}}</text>
+            </navigator>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+    <navigator url="/pages/category/category?id={{item.id}}" class="t">
+      <view class="txt">{{'更多'+item.name+'好物 >'}}</view>
+    </navigator>
+  </view>
+</view> -->
+<!-- <view class="a-section a-brand">
     <view class="h">
       <navigator url="../brand/brand">
         <text class="txt">品牌制造商直供</text>
@@ -255,24 +322,4 @@
         </view>
       </scroll-view>
     </view>
-  </view>
-  <view class="good-grid" wx:for="{{floorGoods}}" wx:key="id">
-    <view class="h">
-      <text>{{item.name}}</text>
-    </view>
-    <view class="b">
-      <block wx:for="{{item.goodsList}}" wx:for-index="iindex" wx:for-item="iitem" wx:key="id">
-        <view class="item {{iindex % 2 == 0 ? '' : 'item-b'}}">
-          <navigator url="../goods/goods?id={{iitem.id}}" class="a">
-            <image class="img" src="{{iitem.picUrl}}" background-size="cover"></image>
-            <text class="name">{{iitem.name}}</text>
-            <text class="price">￥{{iitem.retailPrice}}</text>
-          </navigator>
-        </view>
-      </block>
-    </view>
-    <navigator url="/pages/category/category?id={{item.id}}" class="t">
-      <view class="txt">{{'更多'+item.name+'好物 >'}}</view>
-    </navigator>
-  </view>
-</view>
+  </view> -->

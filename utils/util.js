@@ -1,5 +1,35 @@
 var api = require('../config/api.js');
 var app = getApp();
+// 时间格式化输出，如1天天23时时12分分12秒秒12 。每10ms都会调用一次
+function dateformat(micro_second) {
+  var day = parseInt(Math.floor(micro_second / 86400));
+  var time = parseInt(Math.floor((micro_second - (day * 86400)) / 3600));
+  var min = parseInt(Math.floor((micro_second - (time * 3600 + day * 86400)) / 60))
+  var sinTime = time * 3600 + min * 60 + day * 86400
+  var sinTimeb;
+  var sin1 = parseInt((micro_second - sinTime))
+  var thisTime = "";
+  if (day > 0) thisTime = thisTime + addEge(day) + "天";
+  thisTime = thisTime + addEge(time) + ":" + addEge(min) + ":" + addEge(sin1);
+  micro_second <= 0 ? thisTime = "00:00:00" : thisTime
+  return thisTime;
+}
+
+function addEge(a) {
+  return a < 10 ? a = "0" + a : a = a
+}
+
+function newDateStr() {
+  var date = new Date();
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  var hour = 23
+  var minute = 59
+  var second = 59
+  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+
 
 function formatTime(date) {
   var year = date.getFullYear()
@@ -87,6 +117,8 @@ function showErrorToast(msg) {
 
 module.exports = {
   formatTime,
+  dateformat,
+  newDateStr,
   request,
   redirect,
   showErrorToast

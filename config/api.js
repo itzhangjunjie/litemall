@@ -14,6 +14,12 @@ module.exports = {
   IndexUrl: WxApiRoot + 'home/index', //首页数据接口
   AboutUrl: WxApiRoot + 'home/about', //介绍信息
 
+  ApplyCreate: WxApiRoot + 'store/create', //申请门店
+  ApplyList: WxApiRoot + 'store/list', //门店列表
+
+  MenuList: WxApiRoot + 'menu/getfirstcategory', //菜谱类目列表
+  TopicList: WxApiRoot + 'topic/list', //菜谱类目列表
+
   CatalogList: WxApiRoot + 'catalog/index', //分类目录全部分类数据接口
   CatalogCurrent: WxApiRoot + 'catalog/current', //分类目录当前分类数据接口
 
@@ -25,6 +31,7 @@ module.exports = {
   AuthRegisterCaptcha: WxApiRoot + 'auth/regCaptcha', //验证码
   AuthBindPhone: WxApiRoot + 'auth/bindPhone', //绑定微信手机号
 
+  GoodsDetailProject: WxApiRoot + 'goods/detailproject', //获取商品的projectId列表
   GoodsCount: WxApiRoot + 'goods/count', //统计商品总数
   GoodsList: WxApiRoot + 'goods/list', //获得商品列表
   GoodsCategory: WxApiRoot + 'goods/category', //获得分类数据
@@ -34,6 +41,7 @@ module.exports = {
   BrandList: WxApiRoot + 'brand/list', //品牌列表
   BrandDetail: WxApiRoot + 'brand/detail', //品牌详情
 
+  CartGoodsList: WxApiRoot + 'cart/goodslist', //获取购物车的数据
   CartList: WxApiRoot + 'cart/index', //获取购物车的数据
   CartAdd: WxApiRoot + 'cart/add', // 添加商品到购物车
   CartFastAdd: WxApiRoot + 'cart/fastadd', // 立即购买商品

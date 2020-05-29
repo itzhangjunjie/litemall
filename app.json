@@ -1,6 +1,11 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/creategroup/creategroup",
+    "pages/auth/apply/apply",
+    "pages/auth/login/login",
+    "pages/maxcook/maxcook",
+    "pages/topic/topic",
     "pages/catalog/catalog",
     "pages/newGoods/newGoods",
     "pages/hotGoods/hotGoods",
@@ -14,14 +19,12 @@
     "pages/ucenter/couponList/couponList",
     "pages/ucenter/couponSelect/couponSelect",
     "pages/ucenter/collect/collect",
-    "pages/auth/login/login",
     "pages/auth/accountLogin/accountLogin",
     "pages/auth/register/register",
     "pages/auth/reset/reset",
     "pages/payResult/payResult",
     "pages/comment/comment",
     "pages/commentPost/commentPost",
-    "pages/topic/topic",
     "pages/topicComment/topicComment",
     "pages/topicDetail/topicDetail",
     "pages/topicCommentPost/topicCommentPost",
@@ -40,17 +43,18 @@
     "pages/help/help",
     "pages/ucenter/aftersale/aftersale",
     "pages/ucenter/aftersaleList/aftersaleList",
-    "pages/ucenter/aftersaleDetail/aftersaleDetail"
+    "pages/ucenter/aftersaleDetail/aftersaleDetail",
+    "pages/web-view/web-view"
+    
   ],
   "window": {
     "navigationBarBackgroundColor": "#FFFFFF",
-    "navigationBarTitleText": "litemall小程序商城",
+    "navigationBarTitleText": "冰狗生鲜",
     "enablePullDownRefresh": false,
     "navigationBarTextStyle": "black",
     "backgroundColor": "#FFFFFF",
     "backgroundTextStyle": "dark"
   },
-  
   "tabBar": {
     "backgroundColor": "#fafafa",
     "borderStyle": "white",
@@ -69,7 +73,12 @@
         "selectedIconPath": "static/images/category@selected.png",
         "text": "分类"
       },
-      
+      {
+        "pagePath": "pages/maxcook/maxcook",
+        "iconPath": "static/images/meichu.png",
+        "selectedIconPath": "static/images/meichu@selected.png",
+        "text": "美厨"
+      },
       {
         "pagePath": "pages/cart/cart",
         "iconPath": "static/images/cart.png",
@@ -104,7 +113,7 @@
     "van-checkbox": "./lib/vant-weapp/checkbox/index",
     "van-steps": "./lib/vant-weapp/steps/index"
   },
-  "permission": { 
+  "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于定位效果展示"
     }

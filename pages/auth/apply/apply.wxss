@@ -1,0 +1,36 @@
+/* pages/auth/apply/apply.wxss */
+
+.zcview{
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 50rpx;
+  overflow: hidden;
+}
+.zctitle{
+  font-size: 60rpx;
+  font-weight: bold;
+}
+.zcbrief{
+  width: 100%; 
+  margin-top: 40rpx;
+  background: wheat;
+  padding: 16rpx 18rpx;
+  box-sizing: border-box;
+}
+.zcsqmd{
+  margin-top: 70rpx;
+  border-radius: 20rpx;
+  width: 100%;
+  background: rgb(0, 173, 162);
+  padding: 50rpx 30rpx;
+}
+.mdtitle{
+  font-size: 50rpx;
+  color: white;
+}
+.mdbrief{
+  font-size: 28rpx;
+  color: white;
+  margin-top: 16rpx;
+}

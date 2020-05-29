@@ -1,7 +1,7 @@
 <view class="container">
   <view class="search">
     <navigator url="/pages/search/search" class="input">
-      <van-icon name="search"/>
+      <van-icon name="search" />
       <text class="txt">商品搜索, 共{{goodsCount}}款好物</text>
     </navigator>
   </view>
@@ -9,8 +9,55 @@
     <scroll-view class="nav" scroll-y="true">
       <view class="item {{ currentCategory.id == item.id ? 'active' : ''}}" wx:for="{{categoryList}}" wx:key="id" data-id="{{item.id}}" data-index="{{index}}" bindtap="switchCate">{{item.name}}</view>
     </scroll-view>
-    <scroll-view class="cate" scroll-y="true">
-      <navigator url="url" class="banner">
+
+    <view class="cate">
+      <scroll-view scroll-x class="left-aside"  scroll-left="{{scrollLeft}}">
+        <block wx:for="{{currentSubCategoryList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+          <view bindtap="catechange" data-cateid="{{item.id}}" data-index="{{index}}" class="catename {{catenameactive==index?'catenameactive':''}}">
+            {{item.name}}
+          </view>
+        </block>
+      </scroll-view>
+      <view class="goodslist">
+        <scroll-view class="goods-vew" scroll-y="true" bindscrolltolower="loadMore">
+          <view class='classify' wx:if='{{data.length != 0}}'>
+            <block wx:for='{{data}}' wx:key='id'>
+              <view class='classify-item'>
+                <!-- <navigator url="/pages/goods/goods?id={{item.id}}" class="t"> -->
+                  <image  bindtap='togoodsItem' data-id='{{item.id}}' class='classify-img' src='{{item.picUrl}}' />
+                  <view class="classify-content">
+                    <view class='classify-name' bindtap='togoodsItem' data-id='{{item.id}}'>{{item.name}}</view>
+                    <view class='classify-short-name' bindtap='togoodsItem' data-id='{{item.id}}'>{{item.brief}}</view>
+                    <view catchtap class="classify-footer">
+                      <view class="footer-left">
+                        <view class='classify-price'>{{item.retailPrice}}</view>
+                        <view class='classify-line_price'>￥{{item.counterPrice}}</view>
+                      </view>
+                      <view wx:if="{{cartGoods[item.id] && cartGoods[item.id].number > 0}}" class="selnum">
+                        <view class="cut" bindtap="cutNumber" data-item-index="{{item.id}}">-</view>
+                        <input value="{{cartGoods[item.id].number}}" class="number" disabled="true" type="number" />
+                        <view class="add" bindtap="addNumber" data-item-index="{{item.id}}">+</view>
+                      </view>
+                      <view wx:else class="addcart" bindtap="addcart" data-id="{{item.id}}">
+                        <image src="/static/images/addcart.png"></image>
+                      </view>
+                    </view>
+                  </view>
+                <!-- </navigator> -->
+              </view>
+            </block>
+          </view>
+          <view wx:else class='noData'>暂无商品</view>
+        </scroll-view>
+      </view>
+    </view>
+    <!-- <scroll-view class="cate" scroll-y="true"> -->
+    <!-- <scroll-view scroll-x="true" class="left-aside">
+        <view class="catename" wx:for="{{currentSubCategoryList}}" wx:key="id">
+          {{item.name}}
+        </view>
+      </scroll-view> -->
+    <!-- <navigator url="url" class="banner">
         <image class="image" src="{{currentCategory.picUrl}}"></image>
         <view class="txt">{{currentCategory.frontName}}</view>
       </navigator>
@@ -24,7 +71,7 @@
           <image class="icon" src="{{item.picUrl}}"></image>
           <text class="txt">{{item.name}}</text>
         </navigator>
-      </view>
-    </scroll-view>
+      </view> -->
+    <!-- </scroll-view> -->
   </view>
 </view>

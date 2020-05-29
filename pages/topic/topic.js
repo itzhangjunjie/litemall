@@ -56,6 +56,8 @@ Page({
     });
 
     util.request(api.TopicList, {
+      menuId: 0,
+      isCommend: '1',
       page: that.data.page,
       limit: that.data.limit
     }).then(function(res) {

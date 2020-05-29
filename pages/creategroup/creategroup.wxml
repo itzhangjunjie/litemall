@@ -1,0 +1,63 @@
+<view class="gslogo">
+  <image src="/static/images/logo.png"></image>
+</view>
+<!--头像-->
+<view class='group-form-item'>
+  <view class='group-form-label'>头像</view>
+  <image class='avatar' src='{{dataform.avatarurl}}'></image>
+</view>
+
+<!--昵称-->
+<view class='group-form-item'>
+  <view class='group-form-label'>昵称</view>
+  <view class='group-form-input'>{{dataform.nickname}}</view>
+</view>
+
+<!--姓名-->
+<view class='group-form-item'>
+  <view class='group-form-label'>姓名</view>
+  <input class='group-form-input' placeholder="请填写真实姓名" data-modal='dataform.username' bindinput='handleInputChange' value='{{dataform.username}}'></input>
+</view>
+
+<!--手机-->
+<view class='group-form-item'>
+  <view class='group-form-label'>手机</view>
+  <button class="user_column_item_phone" open-type="getPhoneNumber" bindgetphonenumber="bindPhoneNumber">
+    <view bindtap='writePhone' class='group-form-input {{dataform.tel == "" ? "placeholder-class":""}}'>{{dataform.tel == "" ? "请授权手机号":""}}</view>
+  </button>
+</view>
+<view class='group-form-item'>
+  <view class='group-form-label'>地区</view>
+  <picker class='group-form-input' bindchange='chooseAddress' value="address" mode='region'>
+    <view class='{{dataform.county == "" ? "placeholder-class":""}}'>
+      {{dataform.county == "" ? "请选择所在地区": address}}
+    </view>
+  </picker>
+  <input hidden='{{true}}' class='group-form-input' value='{{dataform.province}}'></input>
+  <input hidden='{{true}}' class='group-form-input' value='{{dataform.city}}'></input>
+  <input hidden='{{true}}' class='group-form-input' value='{{dataform.county}}'></input>
+</view>
+<!--门店名称-->
+<view class='group-form-item' wx:if="{{type==1}}">
+  <view class='group-form-label'>门店名称</view>
+  <input class='group-form-input' placeholder="请填写门店名称" data-modal='dataform.storename' bindinput='handleInputChange' value='{{dataform.storename}}'></input>
+</view>
+
+<view class='group-form-item'>
+  <view class='group-form-label'>小区地址</view>
+  <view bindtap='chooseArea' class='group-form-input {{dataform.xiaoquDetail == "" ? "placeholder-class":""}}'>{{dataform.xiaoquDetail == "" ? "请选择小区地址":""}}</view>
+  <input hidden='{{true}}' class='group-form-input' value='{{dataform.latitude}}'></input>
+  <input hidden='{{true}}' class='group-form-input' value='{{dataform.longitude}}'></input>
+</view>
+
+<!--自提点地址-->
+<view class='group-form-item'>
+  <view class='group-form-label'>详细地址</view>
+  <input class='group-form-input' data-modal='dataform.addressDetail' bindinput='handleInputChange' placeholder="请填写小区的详细地址" value='{{dataform.addressDetail}}'></input>
+</view>
+
+<view class='group-form-item'>
+  <view class='group-form-label'>备注</view>
+  <textarea class='group-form-textarea'  data-modal='dataform.remark' bindinput='handleInputChange' value='{{dataform.remark}}' placeholder='请输入内容'></textarea>
+</view>
+<button class="group-form-btn" bindtap="submit" style="background:rgb(0, 173, 162)">申请{{typeStr}}</button>

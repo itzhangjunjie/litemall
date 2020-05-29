@@ -32,15 +32,15 @@ Page({
       }
     });
 
-    util.request(api.TopicRelated, {
-      id: that.data.id
-    }).then(function(res) {
-      if (res.errno === 0) {
-        that.setData({
-          topicList: res.data.list
-        });
-      }
-    });
+    // util.request(api.TopicRelated, {
+    //   id: that.data.id
+    // }).then(function(res) {
+    //   if (res.errno === 0) {
+    //     that.setData({
+    //       topicList: res.data.list
+    //     });
+    //   }
+    // });
   },
   getCommentList() {
     let that = this;

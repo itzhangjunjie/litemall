@@ -26,6 +26,7 @@ App({
     });
   },
   globalData: {
-    hasLogin: false
+    hasLogin: false,
+    baidukey:"2h9RGcxXdQQsGcq2Ub3mkjAp8VMI8Syh",//免费去百度地图上申请一个
   }
 })

@@ -52,7 +52,7 @@
       <text class="txt">等你来留言</text>
     </view>
   </scroll-view>
-  <scroll-view class="rec-box">
+  <!-- <scroll-view class="rec-box">
     <view class="h">
       <text class="txt">专题推荐</text>
     </view>
@@ -62,5 +62,5 @@
         <text class="title">{{item.title}}</text>
       </navigator>
     </view>
-  </scroll-view>
+  </scroll-view> -->
 </scroll-view>

@@ -1,8 +1,15 @@
 /**app.wxss**/
-
+.navigator-hover{
+  background-color: transparent;
+  opacity: 1;
+}
+page{
+  height: 100%;
+}
 .container {
+  /* height: 100%; */
   box-sizing: border-box;
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
   font-family: PingFangSC-Light, helvetica, 'Heiti SC';
 }
 

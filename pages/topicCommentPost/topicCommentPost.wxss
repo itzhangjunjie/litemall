@@ -15,7 +15,6 @@ page, .container {
   display: flex;
   align-items: center;
   height: 199rpx;
-  margin-left: 31.25rpx;
 }
 
 .post-comment .goods .img {
@@ -62,6 +61,7 @@ page, .container {
   display: flex;
   flex-direction: row;
   height: 55rpx;
+  align-items: center;
 }
 
 .post-comment .rater .rater-title {
