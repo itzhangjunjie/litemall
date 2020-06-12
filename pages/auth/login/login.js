@@ -41,12 +41,16 @@ Page({
 
       user.loginByWeixin(e.detail.userInfo).then(res => {
         app.globalData.hasLogin = true;
-        wx.redirectTo({
-          url: '/pages/auth/apply/apply',
-        })
-        // wx.navigateBack({
-        //   delta: 1
-        // })
+        if(wx.getStorageSync('storeInfo')){
+          wx.navigateBack({
+            delta: 1
+          })
+        }else{
+          wx.redirectTo({
+            url: '/pages/auth/apply/apply',
+          })
+        }
+        
       }).catch((err) => {
         app.globalData.hasLogin = false;
         util.showErrorToast('微信登录失败');

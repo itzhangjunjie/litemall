@@ -195,7 +195,20 @@ Page({
           });
         }
 
-        WxParse.wxParse('goodsDetail', 'html', res.data.info.detail, that);
+        // WxParse.wxParse('goodsDetail', 'html', res.data.info.detail, that);
+        let matchData = res.data.info.detail.match( /url\((.+?)*\)/g ) //通过正则匹配出带有url的变量并存储
+        let imgsList = ''  //定义变量接收img标签数组
+        for(let i in matchData){
+          // 去掉‘url(’,转换后的格式是--->  xxx.jpg)
+          let oneSubstr = matchData[i].substr(4)
+          // 去掉最后的)括号 转换后的格式是---> xxx.jpg
+          let twoSubstr = oneSubstr.substr(0,oneSubstr.length-1)
+          // 然后把图片url拼接到img标签上 转换后的格式是--->   <img style="width:100%;" src="xxx.jpg">
+          imgsList += `<img style="width:100%;" src="${twoSubstr}">`
+        }
+        that.setData({
+          imgsList:imgsList
+        })
         //获取推荐商品
         that.getGoodsRelated();
       }

@@ -146,8 +146,9 @@ Page({
     wx.chooseLocation({
       success: (res) => {
         console.log(res)
+        let xiaoquDetail = 'dataform.xiaoquDetail';
         this.setData({
-          area: res.name,
+          [xiaoquDetail]: res.address,
           latitude: res.latitude,
           longitude: res.longitude
         })
@@ -170,6 +171,13 @@ Page({
       })
       return
     }
+    if(wx.getStorageSync('userInfo')){
+      let userInfo = wx.getStorageSync('userInfo');
+      let userid = 'dataform.userid'
+      this.setData({
+        [userid]:userInfo.userid
+      })
+    }
     util.request(api.ApplyCreate, this.data.dataform, 'POST').then(function (res) {
       if (res.errno === 0) {
         console.log(res);
@@ -178,21 +186,25 @@ Page({
           icon: 'success',
           duration: 2000
         });
-        wx.switchTab({
-          url: '/pages/index/index',
+        setTimeout(() => {
+          wx.switchTab({
+            url: '/pages/index/index',
+          })
+        }, 2000);
+      }else{
+        wx.showToast({
+          title: res.errmsg,
+          icon:'none'
         })
       }
     });
   },
   bindPhoneNumber: function (e) {
-    this.setData({
-      ['dataform.tel']:'18217557679'
-    })
     if (e.detail.errMsg !== "getPhoneNumber:ok") {
       // 拒绝授权
       return;
     }
-    if (!this.data.hasLogin) {
+    if (!app.globalData.hasLogin) {
       wx.showToast({
         title: '绑定失败：请先登录',
         icon: 'none',
@@ -200,14 +212,18 @@ Page({
       });
       return;
     }
+    var that = this;
     util.request(api.AuthBindPhone, {
       iv: e.detail.iv,
       encryptedData: e.detail.encryptedData
     }, 'POST').then(function (res) {
       if (res.errno === 0) {
-        console.log(res);
+        let tel = 'dataform.tel';
+        that.setData({
+          [tel]:res.data.phone
+        })
         wx.showToast({
-          title: '获取手机号码成功',
+          title: '获取手机号成功',
           icon: 'success',
           duration: 2000
         });

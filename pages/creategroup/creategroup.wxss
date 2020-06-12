@@ -1,17 +1,12 @@
 
 .gslogo {
   width: 100%;
-  height: 360rpx;
-  padding-top: 35rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgb(0, 173, 162);
+  height: 400rpx;
 }
 
 .gslogo image {
-  width: 560rpx;
-  height: 325rpx;
+  width: 100%;
+  height: 100%;
 }
 
 .creategroup-banner{

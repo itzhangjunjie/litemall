@@ -10,13 +10,13 @@ function dateformat(micro_second) {
   var sin1 = parseInt((micro_second - sinTime))
   var thisTime = "";
   if (day > 0) thisTime = thisTime + addEge(day) + "天";
-  thisTime = thisTime + addEge(time) + ":" + addEge(min) + ":" + addEge(sin1);
+  thisTime = thisTime +addEge(time) + "<span class='mhclass'>:</span>" + addEge(min) + "<span class='mhclass'>:</span>" + addEge(sin1);
   micro_second <= 0 ? thisTime = "00:00:00" : thisTime
   return thisTime;
 }
 
 function addEge(a) {
-  return a < 10 ? a = "0" + a : a = a
+  return  '<span class="blackclass">' +(a < 10 ? a = "0" + a : a = a)+'</span>'
 }
 
 function newDateStr() {

@@ -21,7 +21,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.0",
-	"appid": "wx710989c5b042096b",
+	"appid": "wx4d7e6328add6a422",
 	"projectname": "litemall-wx",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
@@ -309,6 +309,12 @@
 					"name": "售后详情",
 					"pathName": "pages/ucenter/aftersaleDetail/aftersaleDetail",
 					"query": "id=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ucenter/index/index",
+					"pathName": "pages/ucenter/index/index",
 					"scene": null
 				}
 			]

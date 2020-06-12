@@ -634,7 +634,7 @@
 
 .bottom-btn .c {
   float: left;
-  background: #b4282d;
+  background: #16b4ad;
   height: 100rpx;
   line-height: 96rpx;
   flex: 1;

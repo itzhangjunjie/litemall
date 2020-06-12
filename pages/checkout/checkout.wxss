@@ -284,6 +284,10 @@ page {
   height: 100rpx;
   width: 100%;
   display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  background: white;
 }
 
 .order-total .l {
@@ -299,12 +303,14 @@ page {
 }
 
 .order-total .r {
-  width: 233rpx;
-  height: 100rpx;
-  background: #b4282d;
-  border: 1px solid #b4282d;
-  line-height: 100rpx;
+  width: 180rpx;
+  height: 70rpx;
+  background: #16b4ad;
+  border: 1px solid #16b4ad;
+  line-height: 70rpx;
   text-align: center;
   color: #fff;
   font-size: 30rpx;
+  border-radius: 99rpx;
+  margin-right: 30rpx;
 }

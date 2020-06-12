@@ -8,7 +8,7 @@
     </view>
     <view class="zcsqmd" data-type="2" bindtap="gozcsj" style="background:rgb(71,60,56);margin-top:60rpx;">
         <view class="mdtitle">我是社区团长 ></view>
-        <view class="mdbrief">我们不买菜，我们只是团成员的搬运工！</view>
+        <view class="mdbrief">我们不卖菜，我们只是团成员的搬运工！</view>
     </view>
     <view class="zcsqmd" bindtap="goindex" style="background:rgb(236,110,85);margin-top:60rpx;">
         <view class="mdtitle">我是家庭/个人 ></view>

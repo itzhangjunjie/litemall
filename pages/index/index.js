@@ -17,12 +17,19 @@ Page({
     channel: [],
     coupon: [],
     goodsCount: 0,
+    latitude:'', 
+    longitude:'',
     xzmdflag:false,//开启定位
     address:'',//定位后的地址，河南省郑州市中原区
     timer: '',//定时器名字
+    page:1,//頁數
+    storename:'',//搜索框
+    limit: 10,
     countDownNum: '60',//倒计时初始值
     countDownNumStr:'00:00:00',//显示倒计时
-    mdlist: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }, { id: 6 }]
+    moreflag:false,
+    storeInfo:null,
+    mdlist: []
   },
   getCity: function (latitude, longitude) {
     var that = this;
@@ -46,9 +53,46 @@ Page({
       },
     })
   },
+  //scroll-view 滚动到底部/右边时触发触发
+  loadMore:function() {
+    //根据请求状态flag请求数据
+    if (this.data.moreflag) {
+      this.getApplyList();
+    }
+  },
+  searchmd:function(e){//搜索門店
+    var searchstr = e.detail.value;
+    this.setData({
+      mdlist:[],
+      storename:searchstr
+    })
+    this.getApplyList();
+  },
   getApplyList:function(){//获取门店列表
-    util.request(api.ApplyList,{},'GET').then(function (res) {
-      console.log(res)
+    var that = this;
+    wx.showLoading({
+      title: '加载中...',
+    });
+    util.request(api.ApplyList,{
+      latitude:that.data.latitude, 
+      longitude:that.data.longitude,
+      distance_um:'10',
+      storename:this.data.storename,
+      page:this.data.page,
+      limit:this.data.limit
+    },'GET').then(function (res) {
+      wx.hideLoading();
+      if(res.data.pages> that.data.page){
+        that.setData({
+          moreflag: true,
+          page: that.data.page+1,
+        })
+      }
+      //接收数据，保证每次都拼接上
+      var list = that.data.mdlist.concat(res.data.list);
+      that.setData({
+        mdlist: list,
+      });
     });
   },
   gomd: function () {
@@ -57,8 +101,14 @@ Page({
       type: 'wgs84',
       success(res) {
         console.log(res)
-        // that.getCity(res.latitude, res.longitude);
-        that.getApplyList(res.latitude, res.longitude);
+       // that.getCity(res.latitude, res.longitude);
+        that.setData({
+          latitude:res.latitude, 
+          longitude:res.longitude,
+          mdlist:[],
+          storename:'',
+        })
+        that.getApplyList();
       },
       fail: res => {
         wx.showToast({
@@ -114,7 +164,11 @@ Page({
 
   getIndexData: function() {
     let that = this;
-    util.request(api.IndexUrl).then(function(res) {
+    console.log(wx.getStorageSync('storeInfo'));
+    let params = {
+      storeId:wx.getStorageSync('storeInfo')?wx.getStorageSync('storeInfo').id:null
+    }
+    util.request(api.IndexUrl,params).then(function(res) {
       if (res.errno === 0) {
         var old = new Date(util.newDateStr().replace(/\-/g, "/")).getTime();
         var now = new Date().getTime();
@@ -122,9 +176,9 @@ Page({
         that.setData({
           countDownNum: time,//倒计时长
           newGoods: res.data.newGoodsList,
-          hotGoods: res.data.hotGoodsList,
-          topics: res.data.topicList,
-          brands: res.data.brandList,
+          // hotGoods: res.data.hotGoodsList,
+          // topics: res.data.topicList,
+          // brands: res.data.brandList,
           floorGoods: res.data.floorGoodsList,
           banner: res.data.banner,
           groupons: res.data.grouponList,
@@ -194,6 +248,11 @@ Page({
   },
   onShow: function() {
     // 页面显示
+    if(wx.getStorageSync('storeInfo')){
+      this.setData({
+        storeInfo:wx.getStorageSync('storeInfo')
+      })
+    }
   },
   onHide: function() {
     // 页面隐藏

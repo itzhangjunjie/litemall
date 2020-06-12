@@ -30,9 +30,9 @@ view, text {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 54rpx;
+  height: 104rpx;
 }
 .logobtclass image{
-  width: 120rpx;
-  height: 50rpx;
+  width: 240rpx;
+  height: 100rpx;
 }

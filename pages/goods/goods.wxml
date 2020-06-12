@@ -69,6 +69,7 @@
           </view>
           <view class="time">{{item.addTime}}</view>
         </view>
+       
         <view class="content">
           {{item.content}}
         </view>
@@ -93,8 +94,9 @@
   </view>
 
   <view class="detail">
-    <import src="/lib/wxParse/wxParse.wxml" />
-    <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
+     <rich-text nodes="{{goods.detail}}"></rich-text>
+    <!-- <import src="/lib/wxParse/wxParse.wxml" />
+    <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" /> -->
   </view>
 
   <view class="common-problem">

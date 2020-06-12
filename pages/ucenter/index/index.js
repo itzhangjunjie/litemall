@@ -15,16 +15,28 @@ Page({
       unrecv: 0,
       uncomment: 0
     },
-    hasLogin: false
+    hasLogin: false,
+    storeInfo:null,
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
+    
   },
   onReady: function() {
 
   },
+  jqqd:function(){
+    wx.showToast({
+      icon:'none',
+      title: '敬请期待！',
+    })
+  },
   onShow: function() {
-
+    if(wx.getStorageSync('storeInfo')){
+      this.setData({
+        storeInfo:wx.getStorageSync('storeInfo')
+      })
+    }
     //获取用户的登录信息
     if (app.globalData.hasLogin) {
       let userInfo = wx.getStorageSync('userInfo');
@@ -224,6 +236,7 @@ Page({
         app.globalData.hasLogin = false;
         wx.removeStorageSync('token');
         wx.removeStorageSync('userInfo');
+        wx.removeStorageSync('storeInfo');
         wx.reLaunch({
           url: '/pages/index/index'
         });

@@ -23,7 +23,7 @@
 <view class='group-form-item'>
   <view class='group-form-label'>手机</view>
   <button class="user_column_item_phone" open-type="getPhoneNumber" bindgetphonenumber="bindPhoneNumber">
-    <view bindtap='writePhone' class='group-form-input {{dataform.tel == "" ? "placeholder-class":""}}'>{{dataform.tel == "" ? "请授权手机号":""}}</view>
+    <view bindtap='writePhone' class='group-form-input {{dataform.tel == "" ? "placeholder-class":""}}'>{{dataform.tel == "" ? "请授权手机号":dataform.tel}}</view>
   </button>
 </view>
 <view class='group-form-item'>
@@ -45,7 +45,7 @@
 
 <view class='group-form-item'>
   <view class='group-form-label'>小区地址</view>
-  <view bindtap='chooseArea' class='group-form-input {{dataform.xiaoquDetail == "" ? "placeholder-class":""}}'>{{dataform.xiaoquDetail == "" ? "请选择小区地址":""}}</view>
+  <view bindtap='chooseArea' class='group-form-input {{dataform.xiaoquDetail == "" ? "placeholder-class":""}}'>{{dataform.xiaoquDetail == "" ? "请选择小区地址":dataform.xiaoquDetail}}</view>
   <input hidden='{{true}}' class='group-form-input' value='{{dataform.latitude}}'></input>
   <input hidden='{{true}}' class='group-form-input' value='{{dataform.longitude}}'></input>
 </view>

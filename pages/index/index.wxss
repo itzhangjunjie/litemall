@@ -6,17 +6,16 @@
 
 .gslogo {
   width: 100%;
-  height: 360rpx;
-  padding-top: 35rpx;
+  height: 400rpx;
+  /* padding-top: 35rpx;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: rgb(0, 173, 162);
+  justify-content: center; */
 }
 
 .gslogo image {
-  width: 560rpx;
-  height: 325rpx;
+  width: 100%;
+  height: 100%;
 }
 
 .searchclass {
@@ -59,7 +58,7 @@
 
 .mdlistclass {
   width: 100%;
-  height: calc(100% - 530rpx);
+  height: calc(100% - 630rpx);
   /* background: rgb(241,249,247); */
   margin-top: 22rpx;
   overflow-y: scroll;
@@ -183,6 +182,7 @@ page {
   align-items: center;
   height: 60rpx;
   padding: 0rpx 12rpx;
+  font-weight: bold;
 }
 
 .qxright {
@@ -199,32 +199,38 @@ page {
   height: 60rpx;
   padding: 0rpx 12rpx;
   color: #16b4ad;
+  font-weight: bold;
 }
 
 /* 首页修改 */
 
 .banner {
   width: 750rpx;
-  height: 417rpx;
+  height: 350rpx;
 }
 
 .banner image {
   width: 100%;
-  height: 417rpx;
+  height: 100%;
 }
 
 .m-menu {
   background: #fff;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
   padding-bottom: 0rpx;
   padding-top: 25rpx;
+  width: 100%;
+  height: 150rpx;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .m-menu .item {
   width: 150rpx;
   height: 150rpx;
+  display: inline-block;
 }
 
 .m-menu .bgitem {
@@ -256,12 +262,12 @@ page {
 
 .m-menu text {
   display: block;
-  font-size: 30rpx;
+  font-size: 24rpx;
   text-align: center;
   margin: 0 auto;
   line-height: 1;
   color: #333;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .a-section {
@@ -856,7 +862,7 @@ page {
 
 .goodprice {
   color: red;
-  font-size: 36rpx;
+  font-size: 28rpx;
   margin-right: 10rpx;
 }
 
@@ -888,7 +894,7 @@ page {
 }
 .cate-img {
   width: 100%;
-  height: 240rpx;
+  height: 200rpx;
   border-top-left-radius: 16rpx;
   border-top-right-radius: 16rpx;
 }
@@ -903,4 +909,21 @@ page {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.blackclass{
+  color: white;
+  background: black;
+  padding: 0px 8rpx;
+  border-radius: 8rpx;
+  text-align: center;
+  min-width: 40rpx;
+  height: auto;
+  box-sizing: border-box;
+  display:-moz-inline-box; 
+  display:inline-block;
+}
+.mhclass{
+  margin-left: 8rpx;
+  margin-right: 8rpx;
 }
