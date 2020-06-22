@@ -61,14 +61,14 @@ Page({
               title: '警告',
               content: '不授权无法保存',
               showCancel: false
-          })
+          });
           that.setData({
               canWrite: false
           })
       } else {
           wx.showToast({
               title: '保存成功'
-          })
+          });
           that.setData({
               canWrite: true
           })
@@ -80,7 +80,7 @@ Page({
     wx.downloadFile({
       url: that.data.shareImage,
       success: function(res) {
-        console.log(res)
+        console.log(res);
         wx.saveImageToPhotosAlbum({
           filePath: res.tempFilePath,
           success: function(res) {
@@ -133,11 +133,11 @@ Page({
     }).then(function(res) {
       if (res.errno === 0) {
 
-        let _specificationList = res.data.specificationList
+        let _specificationList = res.data.specificationList;
         // 如果仅仅存在一种货品，那么商品页面初始化时默认checked
         if (_specificationList.length == 1) {
           if (_specificationList[0].valueList.length == 1) {
-            _specificationList[0].valueList[0].checked = true
+            _specificationList[0].valueList[0].checked = true;
 
             // 如果仅仅存在一种货品，那么商品价格应该和货品价格一致
             // 这里检测一下
@@ -196,19 +196,19 @@ Page({
         }
 
         // WxParse.wxParse('goodsDetail', 'html', res.data.info.detail, that);
-        let matchData = res.data.info.detail.match( /url\((.+?)*\)/g ) //通过正则匹配出带有url的变量并存储
-        let imgsList = ''  //定义变量接收img标签数组
+        let matchData = res.data.info.detail.match( /url\((.+?)*\)/g ); //通过正则匹配出带有url的变量并存储
+        let imgsList = '';  //定义变量接收img标签数组
         for(let i in matchData){
           // 去掉‘url(’,转换后的格式是--->  xxx.jpg)
-          let oneSubstr = matchData[i].substr(4)
+          let oneSubstr = matchData[i].substr(4);
           // 去掉最后的)括号 转换后的格式是---> xxx.jpg
-          let twoSubstr = oneSubstr.substr(0,oneSubstr.length-1)
+          let twoSubstr = oneSubstr.substr(0,oneSubstr.length-1);
           // 然后把图片url拼接到img标签上 转换后的格式是--->   <img style="width:100%;" src="xxx.jpg">
           imgsList += `<img style="width:100%;" src="${twoSubstr}">`
         }
         that.setData({
           imgsList:imgsList
-        })
+        });
         //获取推荐商品
         that.getGoodsRelated();
       }
@@ -436,7 +436,7 @@ Page({
     let that = this;
     wx.getSetting({
         success: function (res) {
-            console.log(res)
+            console.log(res);
             //不存在相册授权
             if (!res.authSetting['scope.writePhotosAlbum']) {
                 wx.authorize({
@@ -668,4 +668,4 @@ Page({
 
   }
 
-})
+});

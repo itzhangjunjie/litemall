@@ -48,14 +48,14 @@ Page({
   },
   deleteImage (event) {
     const { fileList = [] } = this.data;
-    fileList.splice(event.detail.index, 1)
+    fileList.splice(event.detail.index, 1);
     this.setData({
       fileList: fileList
     })
   },
   afterRead(event) {
-    const { file } = event.detail
-    let that = this
+    const { file } = event.detail;
+    let that = this;
     const uploadTask = wx.uploadFile({
       url: api.StorageUpload,
       filePath: file.path,
@@ -63,8 +63,8 @@ Page({
       success: function (res) {
         var _res = JSON.parse(res.data);
         if (_res.errno === 0) {
-          var url = _res.data.url
-          that.data.aftersale.pictures.push(url)
+          var url = _res.data.url;
+          that.data.aftersale.pictures.push(url);
           const { fileList = [] } = that.data;
           fileList.push({ ...file, url: url });
           that.setData({
@@ -168,4 +168,4 @@ Page({
   onUnload: function () {
     // 页面关闭
   }
-})
+});

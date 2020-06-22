@@ -89,7 +89,7 @@ Page({
                   icon: 'success',
                   duration: 2000
                 });
-                that.data.collectList.splice(index, 1)
+                that.data.collectList.splice(index, 1);
                 that.setData({
                   collectList: that.data.collectList
                 });
@@ -119,4 +119,4 @@ Page({
       touchEnd: e.timeStamp
     })
   },
-})
+});

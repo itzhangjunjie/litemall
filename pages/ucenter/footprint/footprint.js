@@ -23,13 +23,13 @@ Page({
         let f1 = that.data.footprintList;
         let f2 = res.data.list;
         for (let i = 0; i < f2.length; i++) {
-          f2[i].addDate = f2[i].addTime.substring(0, 10)
+          f2[i].addDate = f2[i].addTime.substring(0, 10);
           let last = f1.length - 1;
           if (last >= 0 && f1[last][0].addDate === f2[i].addDate) {
             f1[last].push(f2[i]);
           } else {
             let tmp = [];
-            tmp.push(f2[i])
+            tmp.push(f2[i]);
             f1.push(tmp);
           }
         }
@@ -66,7 +66,7 @@ Page({
                   icon: 'success',
                   duration: 2000
                 });
-                that.data.footprintList[index].splice(iindex, 1)
+                that.data.footprintList[index].splice(iindex, 1);
                 if (that.data.footprintList[index].length == 0) {
                   that.data.footprintList.splice(index, 1)
                 }
@@ -121,7 +121,7 @@ Page({
     let that = this;
     that.setData({
       touchStart: e.timeStamp
-    })
+    });
     console.log(e.timeStamp + '- touchStart')
   },
   //按下事件结束  
@@ -129,7 +129,7 @@ Page({
     let that = this;
     that.setData({
       touchEnd: e.timeStamp
-    })
+    });
     console.log(e.timeStamp + '- touchEnd')
   },
-})
+});

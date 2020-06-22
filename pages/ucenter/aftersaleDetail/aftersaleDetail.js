@@ -32,7 +32,7 @@ Page({
       orderId: that.data.orderId
     }).then(function (res) {
       if (res.errno === 0) {
-        let _fileList = []
+        let _fileList = [];
         res.data.aftersale.pictures.forEach(function (v) {
           _fileList.push({
             url: v
@@ -62,4 +62,4 @@ Page({
   onUnload: function () {
     // 页面关闭
   }
-})
+});

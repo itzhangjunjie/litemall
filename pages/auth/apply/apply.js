@@ -24,7 +24,7 @@ Page({
     // })
   },
   gozcsj: function (e) {
-    var type = e.currentTarget.dataset.type
+    var type = e.currentTarget.dataset.type;
     wx.navigateTo({
       url: '/pages/creategroup/creategroup?type='+type,
     })
@@ -77,4 +77,4 @@ Page({
   onShareAppMessage: function () {
 
   }
-})
+});

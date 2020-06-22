@@ -40,7 +40,7 @@ Page({
     });
   },
   showLocation: function (e) {
-    var that = this
+    var that = this;
     wx.openLocation({
       latitude: parseFloat(that.data.latitude),
       longitude: parseFloat(that.data.longitude),
@@ -49,9 +49,9 @@ Page({
     })
   },
   callPhone: function (e) {
-    var that = this
+    var that = this;
     wx.makePhoneCall({
       phoneNumber: that.data.phone,
     })
   }
-})
+});

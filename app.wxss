@@ -36,3 +36,66 @@ view, text {
   width: 240rpx;
   height: 100rpx;
 }
+
+
+.masklogin {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 100000;
+}
+
+.masklogin .mask-center-content {
+  font-size: 24rpx;
+  color: rgba(153, 153, 153, 1);
+  text-align: center;
+  width: 408rpx;
+  height: 69rpx;
+  margin: 0px auto;
+  margin-top: 26rpx;
+}
+.masklogin .modal-close {
+  padding-top: 20rpx;
+  padding-right: 20rpx;
+  height: 60rpx;
+}
+
+.masklogin .modal-close image {
+  width: 32rpx;
+  height: 33rpx;
+  float: right;
+}
+
+.masklogin .modal-content {
+  display: flex;
+  flex-direction: column;
+  width: 620rpx;
+  height: 380rpx;
+  background-color: #fff;
+  border-radius: 15rpx;
+}
+.mask-centerview{
+  padding:0rpx 50rpx;
+}
+.mask-title{
+  text-align: center;
+  width: 100%;
+  font-size: 34rpx;
+  padding: 15rpx 0rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 2rpx black dotted;
+}
+.mask-content{
+  width: 100%;
+  padding: 30rpx 30rpx;
+  padding-top: 40rpx;
+  box-sizing: border-box;
+  text-align: left;
+  font-size: 24rpx;
+}

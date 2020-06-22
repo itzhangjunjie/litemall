@@ -13,6 +13,7 @@ Page({
       "checkedGoodsCount": 0,
       "checkedGoodsAmount": 0.00
     },
+    footprintList: [],//我的足迹
     isEditCart: false,
     checkedAllStatus: true,
     editCartList: [],
@@ -20,22 +21,54 @@ Page({
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
+    if (app.globalData.hasLogin) {
+      // this.getFootprintList();
+    }
   },
   onReady: function() {
     // 页面渲染完成
   },
   onPullDownRefresh() {
-    wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showNavigationBarLoading(); //在标题栏中显示加载
     this.getCartList();
-    wx.hideNavigationBarLoading() //完成停止加载
+    wx.hideNavigationBarLoading(); //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
+  },
+  addcart: function (e) {//第一次添加购物车
+    let that = this;
+    var id = e.currentTarget.dataset.id;
+    util.request(api.GoodsDetailProject,{id:id}).then(function (res) {
+      if (res.errno === 0) {
+        console.log(res.data.productList);
+        that.setData({
+          productList: res.data.productList
+        });
+        if (res.data.productList && res.data.productList.length == 1 && res.data.productList[0].specifications[0] == '标准'){
+          //添加到购物车
+          util.request(api.CartAdd, {
+            goodsId: res.data.productList[0].goodsId,
+            number: 1,
+            productId: res.data.productList[0].id
+          }, "POST")
+            .then(function (res) {
+              let _res = res;
+              if (_res.errno == 0) {
+                that.getCartList();
+              } else {
+                util.showErrorToast(_res.errmsg);
+              }
+            });
+        }
+      }
+    });
   },
   onShow: function() {
     // 页面显示
     if (app.globalData.hasLogin) {
       this.getCartList();
+      this.getFootprintList();
     }
-
+    
     this.setData({
       hasLogin: app.globalData.hasLogin
     });
@@ -50,6 +83,23 @@ Page({
   goLogin() {
     wx.navigateTo({
       url: "/pages/auth/login/login"
+    });
+  },
+  getFootprintList() {
+    wx.showLoading({
+      title: '加载中...',
+    });
+    let that = this;
+    util.request(api.FootprintList, {
+      page: 1,
+      limit: 4
+    }).then(function(res) {
+      if (res.errno === 0) {
+        that.setData({
+          footprintList: res.data.list,
+        });
+      }
+      wx.hideLoading();
     });
   },
   getCartList: function() {
@@ -78,7 +128,7 @@ Page({
     });
   },
   doCheckedAll: function() {
-    let checkedAll = this.isCheckedAll()
+    let checkedAll = this.isCheckedAll();
     this.setData({
       checkedAllStatus: this.isCheckedAll()
     });
@@ -287,9 +337,8 @@ Page({
         let cartList = res.data.cartList.map(v => {
           v.checked = false;
           return v;
-        });
-
-        that.setData({
+      })
+          that.setData({
           cartGoods: cartList,
           cartTotal: res.data.cartTotal
         });
@@ -300,4 +349,4 @@ Page({
       });
     });
   }
-})
+});

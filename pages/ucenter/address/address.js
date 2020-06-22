@@ -29,7 +29,7 @@ Page({
     });
   },
   addressAddOrUpdate(event) {
-    console.log(event)
+    console.log(event);
 
     //返回之前，先取出上一页对象，并设置addressId
     var pages = getCurrentPages();
@@ -58,7 +58,7 @@ Page({
     }
   },
   deleteAddress(event) {
-    console.log(event.target)
+    console.log(event.target);
     let that = this;
     wx.showModal({
       title: '',
@@ -80,7 +80,7 @@ Page({
           console.log('用户点击确定')
         }
       }
-    })
+    });
     return false;
 
   },
@@ -90,4 +90,4 @@ Page({
   onUnload: function() {
     // 页面关闭
   }
-})
+});

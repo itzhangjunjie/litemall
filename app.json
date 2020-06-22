@@ -44,8 +44,8 @@
     "pages/ucenter/aftersale/aftersale",
     "pages/ucenter/aftersaleList/aftersaleList",
     "pages/ucenter/aftersaleDetail/aftersaleDetail",
-    "pages/web-view/web-view"
-    
+    "pages/web-view/web-view",
+    "pages/ucenter/order/khorder/order"
   ],
   "window": {
     "navigationBarBackgroundColor": "#FFFFFF",

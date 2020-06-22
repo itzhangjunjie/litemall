@@ -1,16 +1,17 @@
+<wxs module="filters" src="../../utils/filter.wxs"></wxs>
 <view class="container">
   <view class="no-login" wx:if="{{!hasLogin}}">
     <view class="c">
       <text>还没有登录</text>
-      <button style="background-color:#A9A9A9" bindtap="goLogin">去登录</button>
+      <button style="background-color:#179B16" bindtap="goLogin">去登录</button>
     </view>
   </view>
   <view class='login' wx:else>
-    <view class="service-policy">
+    <!-- <view class="service-policy">
       <view class="item">30天无忧退货</view>
       <view class="item">48小时快速退款</view>
       <view class="item">满88元免邮费</view>
-    </view>
+    </view> -->
     <view class="no-cart" wx:if="{{cartGoods.length <= 0}}">
       <view class="c">
         <text>空空如也~</text>
@@ -44,7 +45,6 @@
             </view>
           </view>
         </view>
-
       </view>
       <view class="cart-bottom">
         <van-checkbox value="{{ checkedAllStatus }}" bind:change="checkedAll">全选（{{cartTotal.checkedGoodsCount}}）</van-checkbox>
@@ -57,5 +57,25 @@
         </view>
       </view>
     </view>
+    <view class="zjlist" wx:if="{{footprintList.length>0}}">
+        <view class="zjtitle">
+          猜你喜欢
+        </view>
+        <block wx:for='{{footprintList}}'  wx:for-item="iitem" wx:key="*this">
+          <view class='item'>
+            <navigator url="/pages/goods/goods?id={{iitem.goodsId}}" class="t">
+              <image class='goodimg' src="{{iitem.picUrl}}"></image>
+            </navigator>
+              <view class='goodname'>{{iitem.name}}</view>
+              <view class='good-bottom'>
+                <view class='goodprice'>{{filters.toFix(iitem.retailPrice)}}<text style="font-size:24rpx;">/{{iitem.unit}}</text></view>
+                <view class='goodline-price'>{{filters.toFix(iitem.counterPrice)}}</view>
+                <view class="addcart" bindtap="addcart" data-id="{{iitem.goodsId}}">
+                  <image src="/static/images/addcart.png"></image>
+                </view>
+              </view>
+          </view>
+        </block>  
+      </view>
   </view>
 </view>

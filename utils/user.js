@@ -53,7 +53,7 @@ function loginByWeixin(userInfo) {
         code: res.code,
         userInfo: userInfo
       }, 'POST').then(res => {
-        if (res.errno === 0) {
+        if (res.errno === 0;) {
           //存储用户信息
           wx.setStorageSync('userInfo', res.data.userInfo);
           if(res.data.storeInfo){
@@ -67,8 +67,8 @@ function loginByWeixin(userInfo) {
         }
       }).catch((err) => {
         reject(err);
-      });
-    }).catch((err) => {
+  })
+  }).catch((err) => {
       reject(err);
     })
   });
@@ -81,10 +81,12 @@ function checkLogin() {
   return new Promise(function(resolve, reject) {
     if (wx.getStorageSync('userInfo') && wx.getStorageSync('token')) {
       checkSession().then(() => {
-        resolve(true);
-      }).catch(() => {
-        reject(false);
-      });
+          resolve(true;
+    )
+    }).catch(() => {
+            reject(false;
+    )
+    })
     } else {
       reject(false);
     }

@@ -117,4 +117,4 @@ Page({
     });
     this.getGoodsList();
   }
-})
+});

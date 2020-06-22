@@ -144,7 +144,7 @@ Page({
       grouponRulesId: this.data.grouponRulesId,
       grouponLinkId: this.data.grouponLinkId
     }, 'POST').then(res => {
-      if (res.errno === 0) {
+      if (res.errno === 0;) {
 
         // 下单成功，重置couponId
         try {
@@ -174,7 +174,8 @@ Page({
                     wx.redirectTo({
                       url: '/pages/groupon/grouponDetail/grouponDetail?id=' + grouponLinkId
                     })
-                  }, 1000);
+                  }, 1000;
+                )
                 } else {
                   wx.redirectTo({
                     url: '/pages/payResult/payResult?status=1&orderId=' + orderId
@@ -201,6 +202,6 @@ Page({
       } else {
         util.showErrorToast(res.errmsg);
       }
-    });
+  })
   }
 });

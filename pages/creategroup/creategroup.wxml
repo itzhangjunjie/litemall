@@ -1,4 +1,4 @@
-<view class="gslogo">
+<view class="gslogo" bindtap="showmessage">
   <image src="/static/images/logo.png"></image>
 </view>
 <!--头像-->
@@ -26,17 +26,17 @@
     <view bindtap='writePhone' class='group-form-input {{dataform.tel == "" ? "placeholder-class":""}}'>{{dataform.tel == "" ? "请授权手机号":dataform.tel}}</view>
   </button>
 </view>
-<view class='group-form-item'>
+<!-- <view class='group-form-item'>
   <view class='group-form-label'>地区</view>
   <picker class='group-form-input' bindchange='chooseAddress' value="address" mode='region'>
     <view class='{{dataform.county == "" ? "placeholder-class":""}}'>
       {{dataform.county == "" ? "请选择所在地区": address}}
     </view>
   </picker>
+</view> -->
   <input hidden='{{true}}' class='group-form-input' value='{{dataform.province}}'></input>
   <input hidden='{{true}}' class='group-form-input' value='{{dataform.city}}'></input>
   <input hidden='{{true}}' class='group-form-input' value='{{dataform.county}}'></input>
-</view>
 <!--门店名称-->
 <view class='group-form-item' wx:if="{{type==1}}">
   <view class='group-form-label'>门店名称</view>
@@ -55,9 +55,38 @@
   <view class='group-form-label'>详细地址</view>
   <input class='group-form-input' data-modal='dataform.addressDetail' bindinput='handleInputChange' placeholder="请填写小区的详细地址" value='{{dataform.addressDetail}}'></input>
 </view>
-
+<view class='group-form-item'>
+  <view class='group-form-label'>
+    <block wx:if="{{dataform.type == '1'}}">上传营业执照和经营地照片</block>
+    <block wx:if="{{dataform.type == '2'}}">上传微信社群人数截图</block>
+  </view>
+  <view class="weui-uploader__files" id="uploaderFiles">
+      <block wx:for="{{files}}" wx:key="*this">
+        <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+          <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+        </view>
+      </block>
+      <view class="weui-uploader__input-box"  bindtap="chooseImage" wx:if="{{ files.length < 5 }}">
+        <view class="weui-uploader__input"></view>
+      </view>
+    </view>
+</view>
 <view class='group-form-item'>
   <view class='group-form-label'>备注</view>
   <textarea class='group-form-textarea'  data-modal='dataform.remark' bindinput='handleInputChange' value='{{dataform.remark}}' placeholder='请输入内容'></textarea>
 </view>
 <button class="group-form-btn" bindtap="submit" style="background:rgb(0, 173, 162)">申请{{typeStr}}</button>
+
+
+<!-- 消息提示框-->
+<view wx:if="{{messageshow}}" class="masklogin" catchtouchmove='nomove'>
+  <view class='modal-content'>
+    <view class="modal-close">
+      <image bindtap="closeMask" src="/static/images/wechatloginclose.png"></image>
+    </view>
+    <view class="mask-centerview">
+      <view class="mask-title">信息提交完成</view>
+      <view class="mask-content">{{messagetitle}}</view>
+    </view>
+  </view>
+</view>

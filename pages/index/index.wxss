@@ -136,7 +136,7 @@ page {
 
 .mgmdview {
   width: 100%;
-  height: 60rpx;
+  height: 70rpx;
   display: flex;
   align-items: center;
   background: white;
@@ -220,9 +220,9 @@ page {
   align-items: center;
   flex-wrap: wrap; */
   padding-bottom: 0rpx;
-  padding-top: 25rpx;
+  padding-top: 50rpx;
   width: 100%;
-  height: 150rpx;
+  height: 160rpx;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -234,7 +234,7 @@ page {
 }
 
 .m-menu .bgitem {
-  width: 82rpx;
+  width: 100rpx;
   height: 112rpx;
   margin: 0 auto;
   position: relative;
@@ -251,13 +251,13 @@ page {
 
 .goodimage {
   display: block;
-  width: 67rpx;
-  height: 64rpx;
+  width: 100rpx;
+  height: 100rpx;
   position: absolute;
   border-radius: 20rpx;
   z-index: 2;
-  top: 26rpx;
-  left: 8rpx;
+  /* top: 26rpx;
+  left: 8rpx; */
 }
 
 .m-menu text {
@@ -839,7 +839,7 @@ page {
   display: inline-block;
   text-align: center;
   margin-right: 26rpx;
-  width: 200rpx;
+  width: 220rpx;
 }
 
 .item:last-child {
@@ -865,7 +865,15 @@ page {
   font-size: 28rpx;
   margin-right: 10rpx;
 }
-
+.nogoods{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  padding-top: 210rpx;
+}
 .goodprice::before {
   content: '￥';
   font-size: 28rpx;

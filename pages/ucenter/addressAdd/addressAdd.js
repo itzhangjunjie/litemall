@@ -82,9 +82,8 @@ Page({
     let that = this;
     let doneStatus = that.data.selectRegionList.every(item => {
       return item.code != 0;
-    });
-
-    that.setData({
+  })
+      that.setData({
       selectRegionDone: doneStatus
     })
 
@@ -111,7 +110,7 @@ Page({
       let regionList = area.getList('county', address.areaCode.slice(0, 4));
       regionList = regionList.map(item => {
         //标记已选择的
-        if (address.areaCode === item.code) {
+        if (address.areaCode === item.code;) {
           item.selected = true;
         } else {
           item.selected = false;
@@ -152,7 +151,7 @@ Page({
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
-    console.log(options)
+    console.log(options);
     if (options.id && options.id != 0) {
       this.setData({
         addressId: options.id
@@ -191,7 +190,7 @@ Page({
 
     regionList = regionList.map(item => {
       //标记已选择的
-      if (that.data.selectRegionList[regionTypeIndex].code == item.code) {
+      if (that.data.selectRegionList[regionTypeIndex].code == item.code;) {
         item.selected = true;
       } else {
         item.selected = false;
@@ -202,7 +201,7 @@ Page({
     this.setData({
       regionList: regionList,
       regionType: regionTypeIndex + 1
-    })
+    });
 
     this.setRegionDoneStatus();
   },
@@ -217,11 +216,11 @@ Page({
     if (regionType == 3) {
       this.setData({
         selectRegionList: selectRegionList
-      })
+      });
 
       let regionList = that.data.regionList.map(item => {
         //标记已选择的
-        if (that.data.selectRegionList[that.data.regionType - 1].code == item.code) {
+        if (that.data.selectRegionList[that.data.regionType - 1].code == item.code;) {
           item.selected = true;
         } else {
           item.selected = false;
@@ -231,7 +230,7 @@ Page({
 
       this.setData({
         regionList: regionList
-      })
+      });
 
       this.setRegionDoneStatus();
       return
@@ -239,17 +238,16 @@ Page({
 
     //重置下级区域为空
     selectRegionList.map((item, index) => {
-      if (index > regionType - 1) {
+      if (index > regionType - 1;) {
         item.code = 0;
         item.name = index == 1 ? '城市' : '区县';
       }
       return item;
-    });
-
-    this.setData({
+  })
+      this.setData({
       selectRegionList: selectRegionList,
       regionType: regionType + 1
-    })
+    });
     
     let code = regionItem.code;
     let regionList = [];
@@ -264,7 +262,7 @@ Page({
 
     this.setData({
       regionList: regionList
-    })
+    });
 
     this.setRegionDoneStatus();
   },
@@ -297,7 +295,7 @@ Page({
     wx.navigateBack();
   },
   saveAddress() {
-    console.log(this.data.address)
+    console.log(this.data.address);
     let address = this.data.address;
 
     if (address.name == '') {
@@ -347,7 +345,7 @@ Page({
         if (prevPage.route == "pages/checkout/checkout") {
           prevPage.setData({
             addressId: res.data
-          })
+          });
 
           try {
             wx.setStorageSync('addressId', res.data);
@@ -372,4 +370,4 @@ Page({
     // 页面关闭
 
   }
-})
+});

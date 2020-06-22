@@ -315,6 +315,13 @@
 					"id": -1,
 					"name": "pages/ucenter/index/index",
 					"pathName": "pages/ucenter/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ucenter/index/index",
+					"pathName": "pages/ucenter/index/index",
 					"scene": null
 				}
 			]

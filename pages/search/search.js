@@ -1,7 +1,7 @@
 var util = require('../../utils/util.js');
 var api = require('../../config/api.js');
 
-var app = getApp()
+var app = getApp();
 Page({
   data: {
     keywrod: '',
@@ -83,7 +83,7 @@ Page({
   clearHistory: function() {
     this.setData({
       historyKeyword: []
-    })
+    });
 
     util.request(api.SearchClearHistory, {}, 'POST')
       .then(function(res) {
@@ -192,4 +192,4 @@ Page({
   onKeywordConfirm(event) {
     this.getSearchResult(event.detail.value);
   }
-})
+});

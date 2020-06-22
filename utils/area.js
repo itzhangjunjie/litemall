@@ -3237,7 +3237,7 @@ var areaList =
     "659004": "五家渠市",
     "659006": "铁门关市"
   }
-}
+};
 
 function getConfig(type) {
   return (areaList && areaList[`${type}_list`]) || {};
@@ -3253,15 +3253,16 @@ function getList(type, code) {
   result = Object.keys(list).map(code => ({
     code,
     name: list[code]
-  }));
-
-  if (code) {
+  });
+)
+    if (code) {
     // oversea code
     if (code[0] === '9' && type === 'city') {
       code = '9';
     }
 
-    result = result.filter(item => item.code.indexOf(code) === 0);
+    result = result.filter(item = > item.code.indexOf(code) === 0;
+  )
   }
 
   return result;
@@ -3293,4 +3294,4 @@ module.exports = {
   areaList: areaList,
   getList: getList,
   getIndex: getIndex
-}
+};

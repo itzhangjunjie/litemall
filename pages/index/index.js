@@ -16,7 +16,7 @@ Page({
     banner: [],
     channel: [],
     coupon: [],
-    goodsCount: 0,
+    goodsCount: 20,
     latitude:'', 
     longitude:'',
     xzmdflag:false,//开启定位
@@ -29,6 +29,8 @@ Page({
     countDownNumStr:'00:00:00',//显示倒计时
     moreflag:false,
     storeInfo:null,
+    currentmd:{},
+    currentStoreId:0,//当前门店id
     mdlist: []
   },
   getCity: function (latitude, longitude) {
@@ -38,12 +40,12 @@ Page({
       ak: app.globalData.baidukey,
       output: "json",
       location: latitude + "," + longitude
-    }
+    };
     wx.request({
       url: url,
       data: params,
       success: function (res) {
-        var addr = new Array();
+        var addr = [];
         addr.push(res.data.result.addressComponent.province);
         addr.push(res.data.result.addressComponent.city);
         addr.push(res.data.result.addressComponent.district);
@@ -65,8 +67,33 @@ Page({
     this.setData({
       mdlist:[],
       storename:searchstr
-    })
+    });
     this.getApplyList();
+  },
+  getInitStoreList:function(){//获取初始化门店信息
+    if(this.data.isshowflag){
+      return;
+    }
+    var that = this;
+    wx.showLoading({
+      title: '加载中...',
+    });
+    util.request(api.ApplyList,{
+      latitude:that.data.latitude, 
+      longitude:that.data.longitude,
+      distance_um:'10',
+      storename:this.data.storename,
+      page:1,
+      limit:1
+    },'GET').then(function (res) {
+      wx.hideLoading();
+      that.setData({
+        isshowflag:true,
+        currentmd:res.data.list[0]
+      });
+      wx.setStorageSync('storeId',res.data.list[0].id);
+      that.getIndexData();
+    });
   },
   getApplyList:function(){//获取门店列表
     var that = this;
@@ -100,14 +127,14 @@ Page({
     wx.getLocation({
       type: 'wgs84',
       success(res) {
-        console.log(res)
+        console.log(res);
        // that.getCity(res.latitude, res.longitude);
         that.setData({
           latitude:res.latitude, 
           longitude:res.longitude,
           mdlist:[],
           storename:'',
-        })
+        });
         that.getApplyList();
       },
       fail: res => {
@@ -120,24 +147,29 @@ Page({
       xzmdflag: true,
     });
   },
-  jrmd: function () {
+  jrmd: function (e) {
+    var currentmd = e.currentTarget.dataset.obj;
     this.setData({
       xzmdflag: false,
+      currentmd:currentmd,
+      currentStoreId:e.currentTarget.dataset.storeid
     });
+    wx.setStorageSync('storeId', e.currentTarget.dataset.storeid);
+    this.getIndexData();
   },
   goh5: function (e) {
     wx.navigateTo({
       url: '/pages/creategroup/creategroup',
-    })
+    });
     return;
-    var content = e.currentTarget.dataset.content
+    var content = e.currentTarget.dataset.content;
     content = 'http://www.baidu.com';
     if (content && (content.indexOf('http://') >= 0 || content.indexOf('https://') >= 0)) {
       wx.navigateTo({
         url: '/pages/web-view/web-view?url=' + content
       })
     } else {
-      return;
+
     }
   },
   gocate: function (e) {//跳转至分类列表
@@ -156,9 +188,9 @@ Page({
   },
 
   onPullDownRefresh() {
-    wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showNavigationBarLoading(); //在标题栏中显示加载
     this.getIndexData();
-    wx.hideNavigationBarLoading() //完成停止加载
+    wx.hideNavigationBarLoading(); //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
   },
 
@@ -166,8 +198,13 @@ Page({
     let that = this;
     console.log(wx.getStorageSync('storeInfo'));
     let params = {
-      storeId:wx.getStorageSync('storeInfo')?wx.getStorageSync('storeInfo').id:null
-    }
+      // storeId: this.data.currentStoreId
+    };
+    util.request(api.GoodsCount,params).then(function(res) {
+      that.setData({
+        goodsCount: res.data
+      });
+    });
     util.request(api.IndexUrl,params).then(function(res) {
       if (res.errno === 0) {
         var old = new Date(util.newDateStr().replace(/\-/g, "/")).getTime();
@@ -240,8 +277,14 @@ Page({
         url: '../ucenter/orderDetail/orderDetail?id=' + options.orderId
       });
     }
-
-    this.getIndexData();
+    this.setData({
+      latitude:'31.365872955322266', 
+      longitude:'121.40377960205078',
+      mdlist:[],
+      isshowflag:false,
+      storename:'',
+    });
+    this.getInitStoreList();
   },
   onReady: function() {
     // 页面渲染完成
@@ -251,7 +294,10 @@ Page({
     if(wx.getStorageSync('storeInfo')){
       this.setData({
         storeInfo:wx.getStorageSync('storeInfo')
-      })
+      });
+      if(this.data.isshowflag){
+        this.getIndexData();
+      }
     }
   },
   onHide: function() {
@@ -261,11 +307,11 @@ Page({
     // 页面关闭
   },
   getCoupon(e) {
-    let couponId = e.currentTarget.dataset.index
+    let couponId = e.currentTarget.dataset.index;
     util.request(api.CouponReceive, {
       couponId: couponId
     }, 'POST').then(res => {
-      if (res.errno === 0) {
+      if (res.errno === 0;) {
         wx.showToast({
           title: "领取成功"
         })
@@ -287,7 +333,7 @@ Page({
         that.setData({
           countDownNum: countDownNum,
           countDownNumStr: util.dateformat(countDownNum)
-        })
+        });
         //在倒计时还未到0时，这中间可以做其他的事情，按项目需求来
         if (countDownNum == 0) {
           //这里特别要注意，计时器是始终一直在走的，如果你的时间为0，那么就要关掉定时器！不然相当耗性能
@@ -298,4 +344,4 @@ Page({
       }, 1000)
     })
   }
-})
+});

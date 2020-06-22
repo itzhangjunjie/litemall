@@ -17,11 +17,12 @@ Page({
     data:[],//商品列表数组
     curcatelogid:'',//当前分类目录的id
     curcategoryid:'',//当前分类id
-    catenameactive:0,//当前索引值
+    catenameactive:100,//当前索引值
     cartGoods:[],//购物车商品列表
     productList:[],//某个商品的标签列表
     moreflag:false,//更多商品
     hasLogin: false,
+    isHot:false,
     page: 1,
     limit: 10
   },
@@ -63,7 +64,7 @@ Page({
       }, 'POST').then(function (res) {
         if (res.errno === 0) {
           that.getCartList();
-          return;
+
         }
       });
     }
@@ -134,9 +135,9 @@ Page({
     });
   },
   onPullDownRefresh() {
-    wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showNavigationBarLoading(); //在标题栏中显示加载
     this.getCatalog();
-    wx.hideNavigationBarLoading() //完成停止加载
+    wx.hideNavigationBarLoading(); //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
   },
   getCatalog: function() {
@@ -184,6 +185,8 @@ Page({
       title: '加载中...',
     });
     util.request(api.GoodsList, {
+      isHot: this.data.isHot,
+      type :this.data.cateType,
       categoryId: that.data.curcategoryid,
       page: that.data.page,
       limit: that.data.limit
@@ -210,13 +213,15 @@ Page({
       })
       .then(function(res) {
         that.setData({
-          catenameactive:0,
+          catenameactive:100,
           scrollLeft:0,
           page:1,
           data:[],
           currentCategory: res.data.currentCategory,
           currentSubCategoryList: res.data.currentSubCategory,
-          curcategoryid: res.data.currentSubCategory.length>0 ? res.data.currentSubCategory[0].id : ''
+          curcategoryid: res.data.currentCategory.id ,
+          cateType: 1,
+          isHot:false,
         });
         that.getGoodsList();
       });
@@ -224,6 +229,31 @@ Page({
   catechange:function(e){
     var cateid = e.currentTarget.dataset.cateid;
     var index = e.currentTarget.dataset.index;
+    var type = e.currentTarget.dataset.type;
+    //type:1.全部， 2.推荐    没有值或其他则为筛选某个分类
+    if(type){
+      this.setData({
+        cateType : parseInt(type)
+      });
+      if(type ==1){
+        this.setData({
+          isHot: false
+        })
+      }else if(type == 2){
+        this.setData({
+          isHot: true
+        })
+      }
+      // this.data.cateType = 1;
+    }else{
+      this.setData({
+        cateType : 0,
+        isHot:false
+      })
+    }
+    if(index == 100){
+      cateid = app.globalData.catalogid;
+    }
     this.setData({
       catenameactive:index,
       data:[],
@@ -256,4 +286,4 @@ Page({
     app.globalData.catalogid = event.currentTarget.dataset.id;
     this.getCurrentCategory(event.currentTarget.dataset.id);
   }
-})
+});

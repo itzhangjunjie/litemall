@@ -9,4 +9,4 @@ function isValidPhone(str) {
 
 module.exports = {
   isValidPhone
-}
+};

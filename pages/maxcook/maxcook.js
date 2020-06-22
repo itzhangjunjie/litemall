@@ -17,9 +17,9 @@ Page({
     
   },
   onPullDownRefresh() {
-    wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showNavigationBarLoading(); //在标题栏中显示加载
     this.getCatalog();
-    wx.hideNavigationBarLoading() //完成停止加载
+    wx.hideNavigationBarLoading(); //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
   },
   getCatalog: function () {
@@ -60,6 +60,10 @@ Page({
             moreflag: true,
             page: that.data.page + 1,
           })
+        }else{
+          that.setData({
+            moreflag: false,
+          })
         }
         //接收数据，保证每次都拼接上
         var list = that.data.data.concat(res.data.list);
@@ -94,6 +98,9 @@ Page({
   },
   onShow: function () {
     this.getCatalog();
+    this.setData({
+      data: []
+    });
     this.getTopicList();
   },
   onHide: function () {
@@ -102,4 +109,4 @@ Page({
   onUnload: function () {
     // 页面关闭
   }
-})
+});

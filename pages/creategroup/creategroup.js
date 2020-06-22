@@ -1,5 +1,5 @@
 // pages/group/creategroup/creategroup.js
-let timine
+let timine;
 var app = getApp();
 const util = require('../../utils/util.js');
 const api = require('../../config/api.js');
@@ -11,7 +11,7 @@ Page({
   data: {
     address:[],
     dataform:{
-      type:'',
+      type:'1',//1是社区门店  2是社区团长   3是加盟店
       nickname:'',
       avatarurl:'',
       xiaoquDetail: '',
@@ -30,9 +30,78 @@ Page({
       tel: '',
       status: '0',//0：申请 1：使用中 -1：禁用
       deleted: false,
+      picUrls: [],
     },
-    type: '1',//1是社区门店  2是社区团长
-    typeStr: '社区门店'
+    files: [],
+    type: '1',//1是社区门店  2是社区团长   3是加盟店
+    typeStr: '社区门店',
+    messageshow:false,
+  },
+  closeMask:function(){
+    this.setData({
+      messageshow:false
+    })
+  },
+  nomove:function(){},
+  chooseImage: function(e) {
+    console.log('sssssssss');
+    if (this.data.files.length >= 5) {
+      util.showErrorToast('只能上传五张图片');
+      return false;
+    }
+
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function(res) {
+        that.setData({
+          files: that.data.files.concat(res.tempFilePaths)
+        });
+        that.upload(res);
+      }
+    })
+  },
+  upload: function(res) {
+    var that = this;
+    const uploadTask = wx.uploadFile({
+      url: api.StorageUpload,
+      filePath: res.tempFilePaths[0],
+      name: 'file',
+      success: function(res) {
+        var _res = JSON.parse(res.data);
+        if (_res.errno === 0) {
+          var url = _res.data.url;
+          that.data.dataform.picUrls.push(url);
+          let picUrls = 'dataform.picUrls';
+          that.setData({
+            hasPicture: true,
+            [picUrls]: that.data.dataform.picUrls
+          })
+        }
+      },
+      fail: function(e) {
+        wx.showModal({
+          title: '错误',
+          content: '上传失败',
+          showCancel: false
+        })
+      },
+    });
+
+    uploadTask.onProgressUpdate((res) => {
+      console.log('上传进度', res.progress)
+      console.log('已经上传的数据长度', res.totalBytesSent)
+      console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
+    };)
+
+  },
+  previewImage: function(e) {
+    wx.previewImage({
+      current: e.currentTarget.id, // 当前显示图片的http链接
+      urls: this.data.files // 需要预览的图片http链接列表
+    })
   },
 
   /**
@@ -77,7 +146,7 @@ Page({
       ak: app.globalData.baidukey,
       output: "json",
       location: latitude + "," + longitude
-    }
+    };
     wx.request({
       url: url,
       data: params,
@@ -88,7 +157,7 @@ Page({
         let provincestr = 'dataform.province';
         let citystr = 'dataform.city';
         let countystr = 'dataform.county';
-        var addr = new Array();
+        var addr = [];
         addr.push(res.data.result.addressComponent.province);
         addr.push(res.data.result.addressComponent.city);
         addr.push(res.data.result.addressComponent.district);
@@ -107,7 +176,7 @@ Page({
       type: 'wgs84',
       success(res) {
         that.getCity(res.latitude, res.longitude);
-        console.log(res)
+        console.log(res);
         let latitude = 'dataform.latitude';
         let longitude = 'dataform.longitude';
         that.setData({
@@ -123,7 +192,7 @@ Page({
     })
   },
   chooseAddress(e){
-    console.log(e.detail)
+    console.log(e.detail);
     this.setData({
       province_code: e.detail.code[0],
       city_code: e.detail.code[1],
@@ -142,7 +211,7 @@ Page({
     })
   },
   chooseArea(e){
-    console.log(e)
+    console.log(e);
     wx.chooseLocation({
       success: (res) => {
         console.log(res)
@@ -156,41 +225,47 @@ Page({
     })
   }, 
   submit(e){
+    console.log(this.data.picUrls);
     console.log(this.data.dataform);
     if (!this.data.dataform.username){
       wx.showToast({
         icon: 'none',
         title: '请填写真实姓名',
-      })
+      });
       return
     }
     if (!this.data.dataform.tel) {
       wx.showToast({
         icon: 'none',
         title: '请填写手机号',
-      })
+      });
       return
     }
     if(wx.getStorageSync('userInfo')){
       let userInfo = wx.getStorageSync('userInfo');
-      let userid = 'dataform.userid'
+      let userid = 'dataform.userid';
       this.setData({
         [userid]:userInfo.userid
       })
     }
+    var that = this;
     util.request(api.ApplyCreate, this.data.dataform, 'POST').then(function (res) {
       if (res.errno === 0) {
         console.log(res);
-        wx.showToast({
-          title: '申请成功',
-          icon: 'success',
-          duration: 2000
-        });
-        setTimeout(() => {
-          wx.switchTab({
-            url: '/pages/index/index',
-          })
-        }, 2000);
+        that.setData({
+          messageshow:true,
+          messagetitle:'信息审核中，1～3个工作日内会有专人跟您联系，待签订合同及支付保证金后，即可完成申请。'
+        })
+        // wx.showToast({
+        //   title: '（信息审核中…），1～3个工作日内会有专人跟您联系，待签订合同及支付保证金后，即可完成申请。',
+        //   icon: 'none',
+        //   duration: 3000
+        // });
+        // setTimeout(() => {
+        //   wx.switchTab({
+        //     url: '/pages/index/index',
+        //   })
+        // }, 2000);
       }else{
         wx.showToast({
           title: res.errmsg,
@@ -221,7 +296,7 @@ Page({
         let tel = 'dataform.tel';
         that.setData({
           [tel]:res.data.phone
-        })
+        });
         wx.showToast({
           title: '获取手机号成功',
           icon: 'success',
@@ -230,4 +305,4 @@ Page({
       }
     });
   },
-})
+});

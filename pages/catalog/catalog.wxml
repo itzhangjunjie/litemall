@@ -12,6 +12,12 @@
 
     <view class="cate">
       <scroll-view scroll-x class="left-aside"  scroll-left="{{scrollLeft}}">
+            <view bindtap="catechange" data-type="1" data-cateid="{{currentCategory.id}}" data-index="100" class="catename {{catenameactive==100?'catenameactive':''}}">
+            全部
+          </view>
+          <view bindtap="catechange" data-type="2" data-cateid="{{currentCategory.id}}" data-index="200" class="catename {{catenameactive==200?'catenameactive':''}}">
+            推荐
+          </view>
         <block wx:for="{{currentSubCategoryList}}" wx:for-index="index" wx:for-item="item" wx:key="id">
           <view bindtap="catechange" data-cateid="{{item.id}}" data-index="{{index}}" class="catename {{catenameactive==index?'catenameactive':''}}">
             {{item.name}}

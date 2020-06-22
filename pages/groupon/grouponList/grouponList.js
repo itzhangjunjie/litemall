@@ -129,4 +129,4 @@ Page({
     });
     this.getGrouponList();
   }
-})
+});

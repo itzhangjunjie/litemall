@@ -47,10 +47,10 @@ Page({
           {
             text: '开团成功'
           }
-        ]
-        let _active = res.data.groupon.status
-        let _activeIcon = 'success'
-        let _activeColor = '#07c160'
+        ];
+        let _active = res.data.groupon.status;
+        let _activeIcon = 'success';
+        let _activeColor = '#07c160';
         if (res.data.groupon.status === 3) {
           _steps = [{
               text: '已开团'
@@ -61,9 +61,9 @@ Page({
             {
               text: '开团失败'
             }
-          ]
-          _active = 2
-          _activeIcon = 'fail'
+          ];
+          _active = 2;
+          _activeIcon = 'fail';
           _activeColor = '#EE0A24'
         }
         that.setData({

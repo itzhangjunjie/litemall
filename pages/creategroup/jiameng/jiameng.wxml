@@ -1,0 +1,74 @@
+<view class="gslogo">
+  <image src="/static/images/logo.png"></image>
+</view>
+
+<!--姓名-->
+<view class='group-form-item'>
+  <view class='group-form-label'>姓名</view>
+  <input class='group-form-input' placeholder="请填写真实姓名" data-modal='dataform.username' bindinput='handleInputChange' value='{{dataform.username}}'></input>
+</view>
+
+<!--性别-->
+<view class='group-form-item'>
+  <view class='group-form-label'>性别</view>
+  <picker class='group-form-input' bindchange="pickSex" range="{{columns}}">
+    <view class='{{dataform.sex == "" ? "placeholder-class":""}}'>
+     {{ dataform.sex == "" ? "请选择性别" : dataform.sex }}
+    </view>
+  </picker>
+</view>
+
+<!--预算金额-->
+<view class='group-form-item'>
+  <view class='group-form-label'>预算金额</view>
+  <input class='group-form-input' type="number" placeholder="请填写预算金额(万元)" data-modal='dataform.money' bindinput='handleInputChange' value='{{dataform.money}}'></input>
+</view>
+<!--获知渠道-->
+<view class='group-form-item'>
+  <view class='group-form-label'>获知渠道</view>
+  <picker class='group-form-input' bindchange="pickQudao" range="{{qudaocolumns}}">
+    <view class='{{dataform.qudao == "" ? "placeholder-class":""}}'>
+     {{ dataform.qudao == "" ? "请选择获知渠道" : dataform.qudao }}
+    </view>
+  </picker>
+</view>
+
+<!--手机-->
+<view class='group-form-item'>
+  <view class='group-form-label'>手机</view>
+  <!-- <button class="user_column_item_phone" open-type="getPhoneNumber" bindgetphonenumber="bindPhoneNumber"> -->
+    <input class='group-form-input' type="phone" placeholder="请填写手机号" data-modal='dataform.phone' bindinput='handleInputChange' value='{{dataform.phone}}'></input>
+    <!-- <view bindtap='writePhone' class='group-form-input {{dataform.phone == "" ? "placeholder-class":""}}'>{{dataform.phone == "" ? "请授权手机号":dataform.phone}}</view> -->
+  <!-- </button> -->
+</view>
+<view class='group-form-item'>
+  <view class='group-form-label'>地区</view>
+  <picker class='group-form-input' bindchange='chooseAddress' value="address" mode='region'>
+    <view class='{{dataform.county == "" ? "placeholder-class":""}}'>
+      {{dataform.county == "" ? "请选择所在地区": address}}
+    </view>
+  </picker>
+  <input hidden='{{true}}' class='group-form-input' value='{{dataform.province}}'></input>
+  <input hidden='{{true}}' class='group-form-input' value='{{dataform.city}}'></input>
+  <input hidden='{{true}}' class='group-form-input' value='{{dataform.county}}'></input>
+</view>
+
+<view class='group-form-item'>
+  <view class='group-form-label'>备注</view>
+  <textarea class='group-form-textarea'  data-modal='dataform.remark' bindinput='handleInputChange' value='{{dataform.remark}}' placeholder='请输入内容'></textarea>
+</view>
+<button class="group-form-btn" bindtap="submit" style="background:rgb(0, 173, 162)">申请{{typeStr}}</button>
+
+
+<!-- 消息提示框-->
+<view wx:if="{{messageshow}}" class="masklogin" catchtouchmove='nomove'>
+  <view class='modal-content'>
+    <view class="modal-close">
+      <image bindtap="closeMask" src="/static/images/wechatloginclose.png"></image>
+    </view>
+    <view class="mask-centerview">
+      <view class="mask-title">信息提交完成</view>
+      <view class="mask-content">{{messagetitle}}</view>
+    </view>
+  </view>
+</view>

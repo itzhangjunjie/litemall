@@ -69,10 +69,10 @@ Page({
     this.getCommentList();
   },
   onPullDownRefresh() {
-    wx.showNavigationBarLoading() //在标题栏中显示加载
+    wx.showNavigationBarLoading(); //在标题栏中显示加载
     this.getCommentCount();
     this.getCommentList();
-    wx.hideNavigationBarLoading() //完成停止加载
+    wx.hideNavigationBarLoading(); //完成停止加载
     wx.stopPullDownRefresh() //停止下拉刷新
   },
   onReady: function() {
@@ -128,4 +128,4 @@ Page({
     }
     this.getCommentList();
   }
-})
+});

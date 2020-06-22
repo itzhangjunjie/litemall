@@ -4,14 +4,14 @@ var app = getApp();
 function dateformat(micro_second) {
   var day = parseInt(Math.floor(micro_second / 86400));
   var time = parseInt(Math.floor((micro_second - (day * 86400)) / 3600));
-  var min = parseInt(Math.floor((micro_second - (time * 3600 + day * 86400)) / 60))
-  var sinTime = time * 3600 + min * 60 + day * 86400
+  var min = parseInt(Math.floor((micro_second - (time * 3600 + day * 86400)) / 60));
+  var sinTime = time * 3600 + min * 60 + day * 86400;
   var sinTimeb;
-  var sin1 = parseInt((micro_second - sinTime))
+  var sin1 = parseInt((micro_second - sinTime));
   var thisTime = "";
   if (day > 0) thisTime = thisTime + addEge(day) + "天";
   thisTime = thisTime +addEge(time) + "<span class='mhclass'>:</span>" + addEge(min) + "<span class='mhclass'>:</span>" + addEge(sin1);
-  micro_second <= 0 ? thisTime = "00:00:00" : thisTime
+  micro_second <= 0 ? thisTime = "00:00:00" : thisTime;
   return thisTime;
 }
 
@@ -21,31 +21,31 @@ function addEge(a) {
 
 function newDateStr() {
   var date = new Date();
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
-  var hour = 23
-  var minute = 59
-  var second = 59
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  var hour = 23;
+  var minute = 59;
+  var second = 59;
   return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
 
 function formatTime(date) {
-  var year = date.getFullYear()
-  var month = date.getMonth() + 1
-  var day = date.getDate()
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
 
-  var hour = date.getHours()
-  var minute = date.getMinutes()
-  var second = date.getSeconds()
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  var second = date.getSeconds();
 
 
   return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
 function formatNumber(n) {
-  n = n.toString()
+  n = n.toString();
   return n[1] ? n : '0' + n
 }
 
@@ -53,6 +53,13 @@ function formatNumber(n) {
  * 封封微信的的request
  */
 function request(url, data = {}, method = "GET") {
+  if(data.storeId){
+
+  }else if(wx.getStorageSync("storeInfo")){
+    data.storeId = 0
+  }else if(wx.getStorageSync("storeId")){
+    data.storeId = wx.getStorageSync("storeId")
+  }
   return new Promise(function(resolve, reject) {
     wx.request({
       url: url,
@@ -70,6 +77,8 @@ function request(url, data = {}, method = "GET") {
             // 清除登录相关内容
             try {
               wx.removeStorageSync('userInfo');
+              wx.removeStorageSync('storeInfo');
+              wx.removeStorageSync('storeId');
               wx.removeStorageSync('token');
             } catch (e) {
               // Do something when catch error
@@ -122,4 +131,4 @@ module.exports = {
   request,
   redirect,
   showErrorToast
-}
+};

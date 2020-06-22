@@ -159,4 +159,4 @@ Page({
     wx.navigateBack();
   }
 
-})
+});

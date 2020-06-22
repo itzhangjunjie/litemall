@@ -79,7 +79,8 @@ page {
   border-top-right-radius: 50rpx;
   border-bottom-right-radius: 50rpx;
   letter-spacing: 3rpx;
-  background-image: linear-gradient(to right, #9a9ba1 0%, #9a9ba1 100%);
+  background: #179B16;
+  /* background-image: linear-gradient(to right, #9a9ba1 0%, #9a9ba1 100%); */
 }
 
 .no-cart {
@@ -90,8 +91,8 @@ page {
 
 .no-cart .c {
   width: 100%;
-  height: auto;
-  margin-top: 400rpx;
+  height: 400rpx;
+  padding-top: 200rpx;
 }
 
 .no-cart .c text {
@@ -489,4 +490,61 @@ page {
   border-bottom-right-radius: 50rpx;
   letter-spacing: 3rpx;
   background-image: linear-gradient(to right, #8baaaa 0%, #9a9ba1 100%);
+}
+.zjlist {
+  width: 100%;
+  height: auto;
+  padding-bottom: 100rpx;
+}
+.zjtitle{
+  width: 100%;
+  text-align: center;
+  font-size: 32rpx;
+  padding: 20rpx;
+}
+.zjlist .item {
+  display: inline-block;
+  text-align: center;
+  /* margin-right: 26rpx; */
+  width: 50%;
+  padding: 8px 30rpx;
+  box-sizing: border-box;
+}
+
+.zjlist  .item:last-child {
+  margin-right: 0;
+}
+
+.goodimg {
+  width: 100%;
+  height: 280rpx;
+  border-radius: 10rpx;
+  /* background: #16b4ad; */
+}
+
+.good-bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: left;
+  padding-top: 4rpx;
+}
+
+.goodprice {
+  color: red;
+  font-size: 28rpx;
+  margin-right: 10rpx;
+}
+.goodline-price {
+  text-decoration: line-through;
+  font-size: 24rpx;
+  color: #999;
+}
+.addcart {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 60rpx;
+}
+.addcart image {
+  width: 30rpx;
+  height: 30rpx;
 }

@@ -4,7 +4,7 @@
 // 本机开发时使用
 var WxApiRoot = 'http://123.57.231.14:8080/wx/';
 // 局域网测试使用
-// var WxApiRoot = 'http://192.168.1.3:8080/wx/';
+// var WxApiRoot = 'https://www.gjjmw.cn/wx/';
 // 云平台部署时使用
 // var WxApiRoot = 'http://122.51.199.160:8080/wx/';
 // 云平台上线时使用
@@ -15,6 +15,7 @@ module.exports = {
   AboutUrl: WxApiRoot + 'home/about', //介绍信息
 
   ApplyCreate: WxApiRoot + 'store/create', //申请门店
+  ApplyJiameng: WxApiRoot + 'store/jiameng', //申请门店
   ApplyList: WxApiRoot + 'store/list', //门店列表
 
   MenuList: WxApiRoot + 'menu/getfirstcategory', //菜谱类目列表
@@ -78,7 +79,8 @@ module.exports = {
 
   OrderSubmit: WxApiRoot + 'order/submit', // 提交订单
   OrderPrepay: WxApiRoot + 'order/prepay', // 订单的预支付会话
-  OrderList: WxApiRoot + 'order/list', //订单列表
+  OrderList: WxApiRoot + 'order/list', //个人订单列表
+  OrderListKH: WxApiRoot + 'order/listkh', //客户订单列表
   OrderDetail: WxApiRoot + 'order/detail', //订单详情
   OrderCancel: WxApiRoot + 'order/cancel', //取消订单
   OrderRefund: WxApiRoot + 'order/refund', //退款取消订单
@@ -109,5 +111,6 @@ module.exports = {
   StorageUpload: WxApiRoot + 'storage/upload', //图片上传,
 
   UserIndex: WxApiRoot + 'user/index', //个人页面用户相关信息
+  UserIndexKH: WxApiRoot + 'user/indexkh', //个人页面用户相关信息
   IssueList: WxApiRoot + 'issue/list', //帮助信息
 };

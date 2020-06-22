@@ -49,7 +49,7 @@ Page({
 
           wx.setNavigationBarTitle({
             title: res.data.parentCategory.name
-          })
+          });
 
           // 当id是L1分类id时，这里需要重新设置成L1分类的一个子分类的id
           if (res.data.parentCategory.id == that.data.id) {
@@ -128,4 +128,4 @@ Page({
 
     this.getCategoryInfo();
   }
-})
+});

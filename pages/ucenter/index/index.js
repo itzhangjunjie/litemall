@@ -9,7 +9,13 @@ Page({
       nickName: '点击登录',
       avatarUrl: '/static/images/my.png'
     },
-    order: {
+    order: {//个人订单
+      unpaid: 0,
+      unship: 0,
+      unrecv: 0,
+      uncomment: 0
+    },
+    khorder: {//客户订单
       unpaid: 0,
       unship: 0,
       unrecv: 0,
@@ -24,6 +30,11 @@ Page({
   },
   onReady: function() {
 
+  },
+  jiameng:function(){
+    wx.navigateTo({
+      url: '/pages/creategroup/jiameng/jiameng',
+    })
   },
   jqqd:function(){
     wx.showToast({
@@ -53,6 +64,18 @@ Page({
           });
         }
       });
+      if(wx.getStorageSync('storeInfo')){
+        let params = {
+          storeId: wx.getStorageSync('storeInfo').id
+        };
+        util.request(api.UserIndexKH,params).then(function(res) {
+          if (res.errno === 0) {
+            that.setData({
+              khorder: res.data.order
+            });
+          }
+        });
+      }
     }
 
   },
@@ -65,6 +88,22 @@ Page({
   },
   goLogin() {
     if (!this.data.hasLogin) {
+      wx.navigateTo({
+        url: "/pages/auth/login/login"
+      });
+    }
+  },
+  gokhOrder() {
+    if (this.data.hasLogin) {
+      try {
+        wx.setStorageSync('tab', 0);
+      } catch (e) {
+
+      }
+      wx.navigateTo({
+        url: "/pages/ucenter/order/khorder/order"
+      });
+    } else {
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
@@ -88,8 +127,8 @@ Page({
   },
   goOrderIndex(e) {
     if (this.data.hasLogin) {
-      let tab = e.currentTarget.dataset.index
-      let route = e.currentTarget.dataset.route
+      let tab = e.currentTarget.dataset.index;
+      let route = e.currentTarget.dataset.route;
       try {
         wx.setStorageSync('tab', tab);
       } catch (e) {
@@ -105,7 +144,7 @@ Page({
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
-    };
+    }
   },
   goCoupon() {
     if (this.data.hasLogin) {
@@ -116,7 +155,7 @@ Page({
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
-    };
+    }
   },
   goGroupon() {
     if (this.data.hasLogin) {
@@ -127,7 +166,7 @@ Page({
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
-    };
+    }
   },
   goCollect() {
     if (this.data.hasLogin) {
@@ -138,7 +177,7 @@ Page({
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
-    };
+    }
   },
   goFeedback(e) {
     if (this.data.hasLogin) {
@@ -149,7 +188,7 @@ Page({
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
-    };
+    }
   },
   goFootprint() {
     if (this.data.hasLogin) {
@@ -160,7 +199,7 @@ Page({
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
-    };
+    }
   },
   goAddress() {
     if (this.data.hasLogin) {
@@ -171,7 +210,7 @@ Page({
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
-    };
+    }
   },
   bindPhoneNumber: function(e) {
     if (e.detail.errMsg !== "getPhoneNumber:ok") {
@@ -210,7 +249,7 @@ Page({
       wx.navigateTo({
         url: "/pages/auth/login/login"
       });
-    };
+    }
   },
   aboutUs: function() {
     wx.navigateTo({
@@ -237,6 +276,7 @@ Page({
         wx.removeStorageSync('token');
         wx.removeStorageSync('userInfo');
         wx.removeStorageSync('storeInfo');
+        wx.removeStorageSync('storeId');
         wx.reLaunch({
           url: '/pages/index/index'
         });
@@ -244,4 +284,4 @@ Page({
     })
 
   }
-})
+});

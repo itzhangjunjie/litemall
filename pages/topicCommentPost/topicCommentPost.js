@@ -16,7 +16,7 @@ Page({
   },
   chooseImage: function(e) {
     if (this.data.files.length >= 5) {
-      util.showErrorToast('只能上传五张图片')
+      util.showErrorToast('只能上传五张图片');
       return false;
     }
 
@@ -42,8 +42,8 @@ Page({
       success: function(res) {
         var _res = JSON.parse(res.data);
         if (_res.errno === 0) {
-          var url = _res.data.url
-          that.data.picUrls.push(url)
+          var url = _res.data.url;
+          that.data.picUrls.push(url);
           that.setData({
             hasPicture: true,
             picUrls: that.data.picUrls
@@ -57,13 +57,13 @@ Page({
           showCancel: false
         })
       },
-    })
+    });
 
     uploadTask.onProgressUpdate((res) => {
       console.log('上传进度', res.progress)
       console.log('已经上传的数据长度', res.totalBytesSent)
       console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-    })
+    };)
 
   },
   previewImage: function(e) {
@@ -124,7 +124,7 @@ Page({
     let that = this;
 
     if (!this.data.content) {
-      util.showErrorToast('请填写评论')
+      util.showErrorToast('请填写评论');
       return false;
     }
 
@@ -174,4 +174,4 @@ Page({
     // 页面关闭
 
   }
-})
+});

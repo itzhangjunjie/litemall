@@ -42,6 +42,7 @@ Page({
       user.loginByWeixin(e.detail.userInfo).then(res => {
         app.globalData.hasLogin = true;
         if(wx.getStorageSync('storeInfo')){
+          wx.removeStorageSync('storeId');
           wx.navigateBack({
             delta: 1
           })
@@ -54,13 +55,12 @@ Page({
       }).catch((err) => {
         app.globalData.hasLogin = false;
         util.showErrorToast('微信登录失败');
-      });
-
-    });
+  })
+  })
   },
   accountLogin: function() {
     wx.navigateTo({
       url: "/pages/auth/accountLogin/accountLogin"
     });
   }
-})
+});
