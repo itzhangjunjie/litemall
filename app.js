@@ -23,10 +23,10 @@ App({
       this.globalData.hasLogin = true;
     }).catch(() => {
       this.globalData.hasLogin = false;
-    });
+  })
   },
   globalData: {
     hasLogin: false,
     baidukey:"2h9RGcxXdQQsGcq2Ub3mkjAp8VMI8Syh",//免费去百度地图上申请一个
   }
-})
+});
